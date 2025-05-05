@@ -1,0 +1,6 @@
+@use "../global" as *;
+
+.gb-button {
+	cursor: pointer;
+	transition: $t-transition;
+}

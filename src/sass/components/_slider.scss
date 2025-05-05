@@ -1,0 +1,41 @@
+@use "../global" as *;
+
+/* Generall WP Swiper Setting */
+
+.swiper-container {
+	max-width: 90%;
+}
+
+.swiper-button-next,
+.swiper-button-prev {
+	color: $c-primary;
+}
+
+.swiper-pagination-bullet-active {
+	background-color: $c-primary;
+}
+
+.swiper-pagination {
+	bottom: -50px !important;
+}
+
+/* Custom WP Swiper Setting */
+
+.slider-partner {
+	margin-top: 75px;
+	margin-bottom: 75px;
+
+	.wp-swiper__slide {
+		height: 100%;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+
+		.gb-block-image {
+			img {
+				max-height: 1cpx;
+				width: auto;
+			}
+		}
+	}
+}

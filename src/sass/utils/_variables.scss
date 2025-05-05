@@ -1,0 +1,138 @@
+//--------------------------------------------------------------
+// # Base Colors
+// todo: tbc
+//--------------------------------------------------------------
+
+$c-primary: #0071e3;
+$c-primary-hover: #0077ed;
+$c-primaryLight: #2ec8f4;
+$c-secondary: red;
+
+$c-body: #363636;
+$c-white: #fff;
+//c-white: #faf9f6; /* Off White */
+//c-white: #fbfcf8; /* Pearl */
+
+$c-black: #222222;
+$c-gray: #6a747c;
+$c-grayLight: #f2f2f2;
+$c-grayBg: #f8f8f8;
+
+//--------------------------------------------------------------
+// # Space
+//--------------------------------------------------------------
+
+$spaceBase: 100px; // todo: tbc
+$space: $spaceBase;
+
+$s-xs: calc($space / 4); // 25px
+$s-sm: calc($space / 2); // 50px
+$s-md: $space; // 100px
+$s-lg: calc($space + ($space / 2)); // 150px
+$s-xl: calc($space * 2); // 200px
+
+$gap-s: 20px;
+$gap: 40px;
+$gap-xl: 60px;
+
+//--------------------------------------------------------------
+// # Buttons
+// todo: tbc
+//--------------------------------------------------------------
+
+$b-padding: 15px 30px;
+$b-borderWidth: 1px;
+$b-borderStyle: solid;
+$b-borderRadius: 0;
+
+//--------------------------------------------------------------
+// # Padding Mixin mit Default-Werten
+//--------------------------------------------------------------
+
+$padding-large-default: 2em;
+$padding-medium-default: 1.75em;
+$padding-small-default: 1.35em;
+$padding-xs-default: 1.25em;
+
+//--------------------------------------------------------------
+// # Border
+//--------------------------------------------------------------
+
+$borderRadiusXS: 8px;
+$borderRadiusS: 16px;
+$borderRadiusSM: 24px;
+$borderRadiusM: 32px;
+$borderRadiusL: 64px;
+
+//--------------------------------------------------------------
+// # Typography & Fonts
+// todo: tbc
+//--------------------------------------------------------------
+
+$f-font: "Arial";
+$f-weight: 500;
+$f-sizeBody: 18px;
+
+//--------------------------------------------------------------
+// # Breakpoints
+//--------------------------------------------------------------
+
+$mobile: 576px; // xs
+$tablet: 768px; // sm
+$phablet: 992px; // md
+$desktop: 1024px; // lg
+$laptop: 1200px; // xl
+$wide: 1440px; // xxl
+
+//--------------------------------------------------------------
+// # Container
+//--------------------------------------------------------------
+
+$containerWidth: 80%;
+$containerMaxWidth: 1600px; // todo: tbc
+$containerPad: 10%;
+
+//--------------------------------------------------------------
+// # Path variables
+// > basic use: #{variableName}
+// > example use: content: url("#{$icons}example.svg")
+//--------------------------------------------------------------
+
+$themeName: "childtheme";
+$themePath: "https://example.de/wp-content/themes/#{$themeName}/"; // todo: tbc
+
+$assetsPath: "#{$themePath}assets/";
+$fontsPath: "#{$assetsPath}fonts/";
+$iconsPath: "#{$assetsPath}icons/";
+$imagesPath: "#{$assetsPath}img/";
+
+$uploadsPath: "/wp-content/uploads/";
+
+//--------------------------------------------------------------
+// # Slick Slider
+// todo: tbc
+//--------------------------------------------------------------
+
+$sliderPrevCharacter: "data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%221.5em%22%20height%3D%221.5em%22%20viewBox%3D%220%200%2019.287%2035%22%3E%3Cpath%20fill%3D%22%230097E0%22%20d%3D%22m5.029%2017.512%2013.566%2013.566a2.14%202.14%200%200%201%20.67%201.615%202.3%202.3%200%200%201-.716%201.615%202.23%202.23%200%200%201-3.23%200L1.107%2020.142a3.7%203.7%200%200%201%200-5.26L15.319.671A2.16%202.16%200%200%201%2016.958%200a2.3%202.3%200%200%201%201.637.716%202.23%202.23%200%200%201%200%203.23Z%22%2F%3E%3C%2Fsvg%3E";
+$sliderNextCharacter: "data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%221.5em%22%20height%3D%221.5em%22%20viewBox%3D%220%200%2019.287%2035%22%3E%3Cpath%20fill%3D%22%230097E0%22%20d%3D%22M14.258%2017.488.692%203.922a2.14%202.14%200%200%201-.67-1.615A2.3%202.3%200%200%201%20.738.692a2.23%202.23%200%200%201%203.23%200L18.18%2014.858a3.7%203.7%200%200%201%200%205.26L3.968%2034.329A2.16%202.16%200%200%201%202.329%2035a2.3%202.3%200%200%201-1.637-.716%202.23%202.23%200%200%201%200-3.23Z%22%2F%3E%3C%2Fsvg%3E";
+$sliderOffset: 10px;
+$sliderArrowSize: 24px;
+$sliderArrowPosition: -#{calc($sliderArrowSize + 30px)};
+
+//--------------------------------------------------------------
+// # Stuff
+//--------------------------------------------------------------
+
+$t-transition: 0.3s ease all;
+$border-radius-s: 8px;
+$border-radius-m: 16px;
+$border-radius-xl: 100px;
+
+//--------------------------------------------------------------
+// # Login Styles
+// -> variables used in /wordpress-ui/_wp-login.scss
+//--------------------------------------------------------------
+
+$loginLogo: "#{$imagesPath}logo.svg";
+$checkboxSize: 20px;
+$checkboxCheck: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2024%2024%22%20width%3D%2220%22%20height%3D%2220%22%20role%3D%22presentation%22%20class%3D%22components-checkbox-control__checked%22%20aria-hidden%3D%22true%22%20focusable%3D%22false%22%3E%3Cpath%20d%3D%22M16.7%207.1l-6.3%208.5-3.3-2.5-.9%201.2%204.5%203.4L17.9%208z%22%20fill%3D%22%23fff%22%2F%3E%3C%2Fsvg%3E");

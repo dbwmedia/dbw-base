@@ -1,0 +1,41 @@
+@use "../global" as *;
+
+.cta-section {
+	gap: $gap;
+	h2 {
+		margin-bottom: 10px;
+	}
+
+	/* Breakpoints Settings */
+	@include mq($until: $phablet) {
+		flex-direction: column;
+
+		.gb-container {
+			text-align: left;
+		}
+	}
+}
+
+.seo-section {
+	color: #cccccc;
+
+	.flex-three {
+		> div {
+			text-align: left;
+			align-items: flex-start;
+
+			p {
+				text-align: left;
+			}
+		}
+	}
+
+	/* Breakpoints Settings */
+	@include mq($until: $phablet) {
+		flex-direction: column;
+
+		.gb-container {
+			text-align: left;
+		}
+	}
+}

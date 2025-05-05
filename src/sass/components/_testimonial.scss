@@ -1,0 +1,10 @@
+@use "../global" as *;
+
+.testimonial-wrapper {
+	.testimonial-text {
+		margin-bottom: 30px;
+		p {
+			font-size: 24px;
+		}
+	}
+}

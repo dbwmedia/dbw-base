@@ -1,0 +1,196 @@
+@use "../global" as *;
+
+//--------------------------------------------------------------
+//  WordPress
+//--------------------------------------------------------------
+
+html {
+	box-sizing: border-box;
+}
+
+*,
+*:before,
+*:after {
+	box-sizing: inherit;
+}
+
+body {
+	//background: $c-black;
+	background: transparent;
+}
+
+body.stop {
+	overflow: hidden;
+}
+
+div {
+	box-sizing: border-box;
+}
+
+blockquote:before,
+blockquote:after,
+q:before,
+q:after {
+	content: "";
+}
+
+blockquote,
+q {
+	quotes: "" "";
+}
+
+hr {
+	background-color: #eee;
+	border: 0;
+	height: 1px;
+	margin-bottom: 20px;
+}
+
+ul,
+ol {
+	//margin: 0 0 1.5rem;
+	margin: 0;
+	padding-left: 20px;
+}
+
+.kc_text_block.smallcontainer {
+	max-width: 70rem;
+	margin: 0 auto;
+}
+
+ul {
+	list-style: square;
+}
+
+ol {
+	list-style: decimal;
+}
+
+li > ul,
+li > ol {
+	margin-bottom: 0;
+	margin-left: 1.5em;
+}
+
+dt {
+	font-weight: bold;
+}
+
+dd {
+	margin: 0 1.5em 1.5em;
+}
+
+img {
+	height: auto;
+	max-width: 100%;
+}
+
+table {
+	margin: 0 0 1.5em;
+	width: 100%;
+}
+
+//--------------------------------------------------------------
+// # Accessibility
+//--------------------------------------------------------------
+
+// Text meant only for screen readers.
+
+.screen-reader-text {
+	clip: rect(1px, 1px, 1px, 1px);
+	position: absolute !important;
+	height: 1px;
+	width: 1px;
+	overflow: hidden;
+}
+
+.screen-reader-text:focus {
+	background-color: #f1f1f1;
+	border-radius: 3px;
+	box-shadow: 0 0 2px 2px rgba(0, 0, 0, 0.6);
+	clip: auto !important;
+	color: #21759b;
+	display: block;
+	font-size: 14px;
+	font-size: 0.875rem;
+	font-weight: bold;
+	height: auto;
+	left: 5px;
+	line-height: normal;
+	padding: 15px 23px 14px;
+	text-decoration: none;
+	top: 5px;
+	width: auto;
+	z-index: 100000;
+}
+
+//--------------------------------------------------------------
+// # Alignments
+//--------------------------------------------------------------
+
+.alignleft {
+	display: inline;
+	margin-right: 1.5em;
+}
+
+.alignright {
+	display: inline;
+	margin-left: 1.5em;
+}
+
+.aligncenter {
+	clear: both;
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+//--------------------------------------------------------------
+// # Clearings
+//--------------------------------------------------------------
+
+.clear:before,
+.clear:after,
+.entry-content:before,
+.entry-content:after,
+.comment-content:before,
+.comment-content:after,
+.site-header:before,
+.site-header:after,
+.site-content:before,
+.site-content:after,
+.site-footer:before,
+.site-footer:after {
+	content: "";
+	display: table;
+}
+
+.clear:after,
+.entry-content:after,
+.comment-content:after,
+.site-header:after,
+.site-content:after,
+.site-footer:after {
+	clear: both;
+}
+
+//--------------------------------------------------------------
+// # Media
+//--------------------------------------------------------------
+
+.page-content .wp-smiley,
+.entry-content .wp-smiley,
+.comment-content .wp-smiley {
+	border: none;
+	margin-bottom: 0;
+	margin-top: 0;
+	padding: 0;
+}
+
+// Make sure embeds and iframes fit their containers.
+
+embed,
+iframe,
+object {
+	max-width: 100%;
+}

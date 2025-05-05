@@ -1,0 +1,35 @@
+{
+	"name": "wp-barebone-theme-webpack5-sass",
+	"version": "1.0.0",
+	"description": "Barebones WordPress theme with CSS/SASS and JavaScript compiled using webpack 5.",
+	"main": "index.js",
+	"scripts": {
+		"build": "wp-scripts build --webpack-src-dir=src/js",
+		"start": "echo -e '\u001b[1;35m*** dbw media wünscht \u001b[1;36mHappy Hacking!\u001b[0m\n\u001b[1;32m❤️ ***\u001b[0m' && wp-scripts start --webpack-src-dir=src/js",
+		"packupdate": "wp-scripts packages-update"
+	},
+	"repository": {
+		"type": "git"
+	},
+	"author": "dbw media",
+	"license": "ISC",
+	"dependencies": {
+		"@splidejs/splide": "^4.1.4",
+		"axios": "^1.7.7",
+		"lighthouse": "^12.2.1",
+		"sass-loader": "^16.0.2",
+		"slick-carousel": "^1.8.1",
+		"ws": "^8.18.0"
+	},
+	"devDependencies": {
+		"@eslint/config-array": "^0.19.1",
+		"@eslint/object-schema": "^2.1.5",
+		"@formatjs/icu-messageformat-parser": "^2.11.0",
+		"@wordpress/scripts": "^30.7.0",
+		"core-js": "^3.40.0",
+		"glob": "^11.0.1",
+		"puppeteer-core": "^24.1.1",
+		"rimraf": "^6.0.1",
+		"sass": "^1.83.4"
+	}
+}

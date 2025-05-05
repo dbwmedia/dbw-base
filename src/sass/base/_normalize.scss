@@ -1,0 +1,58 @@
+@use "../global" as *;
+
+
+//--------------------------------------------------------------
+// # Page Einstellungen
+//--------------------------------------------------------------
+#page {
+	position: relative;
+	//overflow: hidden;
+	overflow: unset;
+	display: block;
+	background: $c-white;
+}
+
+//--------------------------------------------------------------
+// # Inhalts-Container
+//--------------------------------------------------------------
+
+#content {
+	.site-main {
+		margin-top: 0 !important;
+		margin-bottom: 0 !important;
+
+		.inside-article {
+			padding: 0;
+
+			.entry-content {
+				//margin-top: $s-md;
+
+				& > * {
+					&:not(.gb-container--content__fullwidth) {
+						@include containerWrap;
+					}
+				}
+			}
+		}
+
+		article {
+			margin-bottom: 0;
+		}
+	}
+}
+
+.container {
+	position: relative;
+	max-width: 1600px;
+	width: 100%;
+	margin: 0 auto;
+	display: block;
+}
+
+.site {
+	max-width: unset;
+	padding: 0;
+	.inside-article {
+		padding: 0;
+	}
+}

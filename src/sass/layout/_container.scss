@@ -1,0 +1,34 @@
+@use "../global" as *;
+
+.gb-container {
+	&--content__regular {
+		@include containerWrap;
+	}
+
+	&--content__fullwidth {
+		width: 100%;
+		padding: $s-md 10%;
+		@media (max-width: 1200px) {
+			padding: 64px 3%;
+		}
+
+		@media (max-width: 500px) {
+			padding: 64px 3%;
+		}
+
+		& > * {
+			@include containerWrap();
+			width: 100%;
+		}
+	}
+
+	&--content__fullwidthmax {
+		min-width: 100%;
+	}
+
+	&--content__centered {
+		* {
+			text-align: center;
+		}
+	}
+}

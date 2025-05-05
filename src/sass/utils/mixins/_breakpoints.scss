@@ -1,0 +1,86 @@
+@use "sass:map";
+@use "sass:list";
+@use "sass:meta"; 
+@use "sass:string"; 
+@use "../variables" as *;
+
+$breakpoints: (
+	mobile: #{$mobile}px,
+	tablet: #{$tablet}px,
+	phablet: #{$phablet}px,
+	desktop: #{$desktop}px,
+	laptop: #{$laptop}px,
+	wide: #{$wide}px,
+
+	// Shorthand variables for ↑
+	// you can use both
+	xs: #{$mobile}px,
+	sm: #{$tablet}px,
+	md: #{$phablet}px,
+	lg: #{$desktop}px,
+	xl: #{$laptop}px,
+	xxl: #{$wide}px,
+) !default;
+
+//$show-breakpoints: (sm, md, lg xl, xxl) !default;
+$media-type: all !default;
+
+@function get-breakpoint-width($name, $breakpoints: $breakpoints) {
+	@if map.has-key($breakpoints, $name) {
+		@return map.get($breakpoints, $name);
+	} @else {
+		@warn "Breakpoint #{$name} wasn't found in $breakpoints. See /utils/mixins/breakpoints.scss for available options / defined values.";
+		@return null;
+		@debug map.get($breakpoints, $name);
+	}
+}
+
+@mixin mq(
+	$from: false,
+	$until: false,
+	$and: false,
+	$breakpoints: $breakpoints,
+	$media-type: $media-type
+) {
+	$min-width: 0;
+	$max-width: 0;
+	$media-query: "";
+
+	// From: this breakpoint (inclusive)
+	@if $from {
+		@if meta.type-of($from) == number { // Geändert: type-of → meta.type-of
+			$min-width: $from;
+		} @else {
+			$min-width: get-breakpoint-width($from, $breakpoints);
+		}
+	}
+
+	// Until: that breakpoint (exclusive)
+	@if $until {
+		@if meta.type-of($until) == number { // Geändert: type-of → meta.type-of
+			$max-width: $until;
+		} @else {
+			$max-width: calc(get-breakpoint-width($until, $breakpoints) - 1px);
+		}
+	}
+
+	@if $min-width != 0 {
+		$media-query: "#{$media-query} and (min-width: #{$min-width})";
+	}
+	@if $max-width != 0 {
+		$media-query: "#{$media-query} and (max-width: #{$max-width})";
+	}
+	@if $and {
+		$media-query: "#{$media-query} and #{$and}";
+	}
+
+	// Remove unnecessary media query prefix 'all and '
+	@if ($media-type == "all" and $media-query != "") {
+		$media-type: "";
+		$media-query: string.slice(string.unquote($media-query), 6); // Geändert: str-slice & unquote → string.slice & string.unquote
+	}
+
+	@media #{$media-type + $media-query} {
+		@content;
+	}
+}

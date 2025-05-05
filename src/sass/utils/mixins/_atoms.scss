@@ -1,0 +1,80 @@
+@use "../variables" as *;
+
+// @mixin BOX-SHADOW
+@mixin boxShadow(
+	$offsetY: 0,
+	$offsetX: 2,
+	$blur: 5,
+	$spread: 0,
+	$color: #000,
+	$transparency: 0.2
+) {
+	box-shadow: #{$offsetY}px #{$offsetX}px #{$blur}px #{$spread}px
+		rgba($color, $transparency);
+}
+
+// @mixin DISPLAY: FLEX
+@mixin dflex($direction: row, $gap: 0, $align: unset, $justify: unset) {
+	display: flex;
+	gap: #{$gap};
+	flex-direction: $direction;
+	align-items: $align;
+	justify-content: $justify;
+
+	@if $direction == row {
+		@include mq($until: desktop) {
+			flex-direction: column;
+		}
+	}
+}
+
+// @mixin GAP
+@mixin gap($gap) {
+	gap: #{$gap}px;
+}
+
+// @mixin GRADIENT
+@mixin gradient($colorLeft, $colorRight) {
+	background: transparent
+		linear-gradient(90deg, $colorLeft 0%, $colorRight 100%);
+}
+
+// @mixin bgColor & overlay
+@mixin bgColor($bgColor: $c-black, $opacity: 100%) {
+	@if $opacity == 100 {
+		background-color: $bgColor;
+	} @else if $opacity < 100% {
+		background-color: rgba($bgColor, $opacity);
+	}
+}
+
+// @mixin pseudo (after / before)
+@mixin pseudoBlank($width: 100%, $height: 100%) {
+	width: $width;
+	height: $height;
+	position: absolute;
+	left: 0;
+	top: 0;
+}
+
+@mixin pseudo($width: 100%, $height: 100%) {
+	content: " ";
+	@include pseudoBlank($width, $height);
+}
+
+// @mixin font
+@mixin font($size, $lineHeight: 1.5) {
+	font-size: $size;
+	line-height: $lineHeight;
+}
+
+// @mixin containerWrap
+@mixin containerWrap($target: self) {
+	@if $target == self {
+		width: $containerWidth;
+		max-width: $containerMaxWidth;
+		margin-inline: auto;
+	} @else if $target == child {
+		padding-inline: $containerPad;
+	}
+}

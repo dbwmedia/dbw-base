@@ -1,0 +1,62 @@
+//--------------------------------------------------------------
+//  # Sass Architecture Structure
+//  > https://gist.github.com/AdamMarsden/7b85e8d5bdb5bef969a0#file-sassas-md
+//--------------------------------------------------------------
+
+//  # (Sass-)UTILS
+//  > Variablen, Mixins, Functions
+@use "global" as *;
+@use "utils/mixins" as *;
+@use "utils/functions";
+
+//  # Custom Login Styles
+@use "wordpress-ui/wp-mixins";
+@use "wordpress-ui/wp-login";
+
+//  # LIBRARIES ( & VENDORS)
+//  > importierte Stylesheets
+//  > z.B. Bootstraps
+//@use "libraries/splide.min.css";
+@use "libraries/slick";
+
+//  # BASE
+//  > Settings like Fonts, Typo, Helperclasses
+@use "base/fonts";
+@use "base/typo";
+@use "base/helpers";
+@use "base/normalize";
+@use "base/wp";
+@use "base/buttons";
+
+//  # LAYOUT
+//  > z.B. Header, Footer, Content, Sidebar
+//@use "layout/navigation";
+@use "layout/header";
+@use "layout/footer";
+@use "layout/forms";
+@use "layout/grid-flex";
+@use "layout/sidebar";
+@use "layout/container";
+@use "layout/page-templates";
+@use "layout/layout-404";
+@use "layout/sections";
+
+//  # COMPONENTS
+//  > Grundeinstellungen für (wiederverwendete) Module/Blocks
+//  > z.B. Buttons, Accordion, Slider
+@use "components/search";
+@use "components/scroll-to-top";
+@use "components/slider";
+@use "components/banner";
+@use "components/key-navigation";
+@use "components/text-image";
+@use "components/services";
+@use "components/accordion";
+@use "components/testimonial";
+
+//  # ELEMENTS
+//  > zusammengefasste Sections/Abschnitte
+//  > bestehen meist aus mehreren COMPONENTS (s.u.)
+//  > z.B. Hero, Kontakt, Download-Section
+@use "elements/hero";
+@use "elements/button";

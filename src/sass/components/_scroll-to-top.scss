@@ -1,0 +1,11 @@
+@use "../global" as *;
+
+.generate-back-to-top {
+	border-radius: 100%;
+	background-color: $c-primary !important;
+	border: 1px solid $c-white;
+
+	.icon-arrow-up {
+		//color: $c-primary;
+	}
+}

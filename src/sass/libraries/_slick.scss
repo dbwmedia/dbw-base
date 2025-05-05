@@ -1,0 +1,249 @@
+@use "../global" as *;
+
+/* FONTS */
+@font-face {
+	font-family: "slick";
+	src: url("#{$fontsPath}slick.woff");
+	font-weight: normal;
+	font-style: normal;
+	font-display: swap;
+}
+
+/* Config */
+
+:root {
+	--slick-arrow-color: #000;
+	--dots-color: #000;
+	--dots-scale: 1;
+	--dots-gap: 5%;
+}
+
+/* Slider */
+.slick-slider {
+	position: relative;
+
+	display: block;
+	box-sizing: border-box;
+
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+
+	-webkit-touch-callout: none;
+	-khtml-user-select: none;
+	-ms-touch-action: pan-y;
+	touch-action: pan-y;
+	-webkit-tap-highlight-color: transparent;
+}
+
+.slick-list {
+	position: relative;
+
+	display: block;
+	overflow: hidden;
+
+	margin: 0;
+	padding: 0;
+}
+.slick-list:focus {
+	outline: none;
+}
+.slick-list.dragging {
+	cursor: pointer;
+	cursor: hand;
+}
+
+.slick-slider .slick-track,
+.slick-slider .slick-list {
+	-webkit-transform: translate3d(0, 0, 0);
+	-moz-transform: translate3d(0, 0, 0);
+	-ms-transform: translate3d(0, 0, 0);
+	-o-transform: translate3d(0, 0, 0);
+	transform: translate3d(0, 0, 0);
+}
+
+.slick-track {
+	position: relative;
+	top: 0;
+	left: 0;
+
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+}
+.slick-track:before,
+.slick-track:after {
+	display: table;
+
+	content: "";
+}
+.slick-track:after {
+	clear: both;
+}
+.slick-loading .slick-track {
+	visibility: hidden;
+}
+
+.slick-slide {
+	display: none;
+	//float: left;
+
+	height: 100%;
+	min-height: 1px;
+}
+[dir="rtl"] .slick-slide {
+	//float: right;
+}
+.slick-slide img {
+	display: block;
+}
+.slick-slide.slick-loading img {
+	display: none;
+}
+.slick-slide.dragging img {
+	pointer-events: none;
+}
+.slick-initialized .slick-slide {
+	display: block;
+}
+.slick-loading .slick-slide {
+	visibility: hidden;
+}
+.slick-vertical .slick-slide {
+	display: block;
+
+	height: auto;
+
+	border: 1px solid transparent;
+}
+.slick-arrow.slick-hidden {
+	display: none;
+}
+
+.slick-dots {
+	position: absolute;
+	left: 50%;
+	margin: 0;
+	transform: translateX(-50%);
+	display: flex;
+	gap: var(--dots-gap);
+}
+
+.slick-dots li {
+	position: relative;
+	display: inline-block;
+	width: 20px;
+	height: 20px;
+	margin: 0 5px;
+	padding: 0;
+	cursor: pointer;
+	scale: var(--dots-scale);
+}
+.slick-dots li button {
+	list-style: none !important;
+	font-size: 0;
+	line-height: 0;
+	display: block;
+	width: 20px;
+	height: 20px;
+	padding: 5px;
+	cursor: pointer;
+	color: transparent;
+	border: 0;
+	outline: none;
+	opacity: 0.2;
+	background: transparent;
+}
+
+.slick-dots li button:hover {
+	opacity: 0.5;
+}
+
+.slick-dots li button:before {
+	content: "•";
+	font-size: 40px;
+	line-height: 20px;
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 20px;
+	height: 20px;
+	text-align: center;
+	color: var(--dots-color); /* Config ist ganz oben Sichtbar */
+}
+.slick-dots li.slick-active button {
+	opacity: 0.5;
+}
+
+.slick-prev.slick-arrow {
+	font-size: 0;
+	line-height: 0;
+	position: absolute;
+	top: 50%;
+	left: -25px;
+	display: block;
+	width: 20px;
+	height: 20px;
+	padding: 0;
+	-webkit-transform: translate(0, -50%);
+	-ms-transform: translate(0, -50%);
+	transform: translate(0, -50%);
+	cursor: pointer;
+	color: transparent;
+	border: none;
+	outline: none;
+	background: transparent;
+	opacity: 0.8;
+}
+
+.slick-prev.slick-arrow::before {
+	content: "←";
+	font-family: "slick";
+	font-size: 20px;
+	line-height: 1;
+	opacity: 0.75;
+	color: var(--slick-arrow-color); /* Config ist ganz oben Sichtbar */
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+}
+
+.slick-prev.slick-arrow:hover {
+	opacity: 1;
+}
+
+.slick-next.slick-arrow {
+	font-size: 0;
+	line-height: 0;
+	position: absolute;
+	top: 50%;
+	right: -25px;
+	display: block;
+	width: 20px;
+	height: 20px;
+	padding: 0;
+	-webkit-transform: translate(0, -50%);
+	-ms-transform: translate(0, -50%);
+	transform: translate(0, -50%);
+	cursor: pointer;
+	color: transparent;
+	border: none;
+	outline: none;
+	background: transparent;
+	opacity: 0.8;
+}
+
+.slick-next.slick-arrow::before {
+	content: "→";
+	font-family: "slick";
+	font-size: 20px;
+	line-height: 1;
+	opacity: 0.75;
+	color: var(--slick-arrow-color); /* Config ist ganz oben Sichtbar */
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+}
+
+.slick-next.slick-arrow:hover {
+	opacity: 1;
+}

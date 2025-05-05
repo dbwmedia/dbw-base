@@ -1,0 +1,110 @@
+@use "../global" as *;
+
+.site-header {
+	position: fixed;
+	top: 0;
+	right: 0;
+	left: 0;
+	z-index: 999;
+	background-color: transparent;
+	transition: $t-transition;
+	margin-top: 47px;
+
+	.inside-header {
+		color: $c-white;
+		max-width: $containerMaxWidth;
+		//padding: 20px 0;
+
+		.menu-toggle {
+			background-color: transparent;
+			color: $c-white;
+		}
+
+		.gb-button.project {
+			@include mq($until: $tablet) {
+				display: none;
+			}
+		}
+	}
+
+	.main-navigation,
+	.main-navigation ul li {
+		background-color: transparent;
+		a {
+			font-size: $f-sizeBody;
+			color: $c-white;
+			transition: $t-transition;
+			&:hover {
+				text-decoration: underline;
+				color: $c-white;
+			}
+		}
+
+		&.current-menu-item {
+			color: initial;
+			a {
+				color: $c-white;
+				&:hover {
+					text-decoration: underline;
+					color: $c-white;
+				}
+			}
+		}
+	}
+
+	&.scroll {
+		//background-color: $c-black;
+
+		background: rgb(34 34 34 / 50%);
+		backdrop-filter: blur(30px);
+		box-shadow: 0 5px 15px 5px rgba(0, 0, 0, 0.2);
+
+		margin-top: 0;
+	}
+
+	@include mq($until: $tablet) {
+		margin-top: 0px;
+	}
+}
+
+body .top-bar {
+	padding: 10px;
+	background-color: $c-black;
+	/* Breakpoint Settings */
+	@include mq($until: $tablet) {
+		display: none;
+	}
+}
+
+#generate-slideout-menu {
+	//background-color: $c-black;
+
+	background: rgb(34 34 34 / 50%);
+	backdrop-filter: blur(30px);
+	box-shadow: 0 5px 15px 5px rgba(0, 0, 0, 0.2);
+
+	color: $c-white;
+	padding: 50px 30px 0;
+	width: 90vw;
+
+	.menu-item {
+		border-top: 1px solid $c-white;
+
+		&:last-child {
+			border-bottom: 1px solid $c-white;
+		}
+
+		a {
+			color: $c-white;
+			font-size: 18px;
+		}
+	}
+
+	.slideout-exit svg {
+		fill: $c-white;
+	}
+
+	.gb-button.project {
+		color: $c-white;
+	}
+}

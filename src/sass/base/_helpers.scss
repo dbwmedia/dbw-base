@@ -1,0 +1,18 @@
+@use "../global" as *;
+
+.valign,
+%valign {
+	&--center {
+		align-items: center;
+	}
+}
+
+.offset--top {
+	&__sm {
+		margin-top: $s-sm;
+	}
+
+	&__md {
+		margin-top: $s-md;
+	}
+}

@@ -1,0 +1,53 @@
+@use "../variables" as *;
+
+%button {
+	font-size: 14px;
+	padding: $b-padding;
+	border-width: $b-borderWidth;
+	border-style: $b-borderStyle;
+	border-radius: $b-borderRadius;
+	text-transform: uppercase;
+	width: fit-content !important;
+}
+
+.buttonRegular,
+%buttonRegular {
+	color: $c-white;
+	background: $c-primary;
+	border-color: $c-primary;
+}
+
+.buttonInverted,
+%buttonInverted {
+	color: $c-primary;
+	background: $c-white;
+	border-color: $c-primary;
+}
+
+@mixin button($type: regular) {
+	@extend %button;
+
+	@if $type == regular {
+		@extend %buttonRegular;
+
+		&:hover,
+		&:focus {
+			&:not(:disabled) {
+				@extend %buttonInverted;
+				cursor: pointer;
+			}
+		}
+	} @else if $type == inverted {
+		@extend %buttonInverted;
+
+		&:hover,
+		&:focus {
+			&:not(:disabled) {
+				@extend %buttonRegular;
+				border-color: $c-white;
+				background-color: unset;
+				cursor: pointer;
+			}
+		}
+	}
+}

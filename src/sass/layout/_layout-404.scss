@@ -1,0 +1,12 @@
+@use "../global" as *;
+
+.four-zero-four {
+	min-height: 80vh;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+
+	h1 {
+		font-size: 32px;
+	}
+}

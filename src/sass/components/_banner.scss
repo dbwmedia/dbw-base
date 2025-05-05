@@ -1,0 +1,62 @@
+@use "../global" as *;
+
+
+.sub-hero-banner {
+	padding-top: 30px;
+	padding-bottom: 30px;
+	background-color: $c-black;
+	color: $c-white;
+
+	h3 {
+		margin-bottom: 0;
+	}
+}
+
+.full-with-banner {
+	position: relative;
+	min-height: 70vh;
+	display: flex;
+	gap: 0;
+	flex-direction: column;
+	align-items: unset;
+	justify-content: center;
+
+	.content {
+		color: $c-white;
+		position: relative;
+
+		h2 {
+			color: $c-white;
+		}
+
+		> * {
+			max-width: 50%;
+		}
+	}
+
+	&::before {
+		content: "";
+		position: absolute;
+		top: 0;
+		left: 0;
+		right: 0;
+		bottom: 0;
+		background: linear-gradient(to left, rgba(0, 0, 0, 0) 15%, black 65%);
+		z-index: 0;
+	}
+
+	/* Breakpoint Settings */
+	@include mq($until: $desktop) {
+		.content {
+			> * {
+				max-width: 100%;
+			}
+		}
+
+		&::before {
+			content: "";
+
+			background: linear-gradient(to left, rgba(0, 0, 0, 0) 15%, black 45%);
+		}
+	}
+}

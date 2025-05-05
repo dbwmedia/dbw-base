@@ -1,0 +1,24 @@
+//--------------------------------------------------------------
+// # Padding Mixin mit Default-Werten
+//--------------------------------------------------------------
+
+@mixin section-padding(
+	$padding-large: $padding-large-default,
+	$padding-medium: $padding-medium-default,
+	$padding-small: $padding-small-default,
+	$padding-xs: $padding-xs-default
+) {
+	padding: $padding-large;
+
+	@include mq($until: $laptop) {
+		padding: $padding-medium;
+	}
+
+	@include mq($until: $phablet) {
+		padding: $padding-small;
+	}
+
+	@include mq($until: $mobile) {
+		padding: $padding-xs;
+	}
+}

@@ -1,0 +1,32 @@
+@use "../utils/variables" as *;
+@use "../utils/mixins" as *;
+@use "../utils/mixins/button" as *;
+
+// INPUT
+@mixin inputText($fontSize: 14px) {
+	border-radius: unset;
+	border-color: $c-primary !important;
+	color: $c-body;
+	background: transparent;
+	font-size: $fontSize;
+	transition: $t-transition;
+
+	&:focus {
+		border-color: $c-primary !important;
+		box-shadow: 0 0 0 1px $c-primary !important;
+	}
+}
+
+@mixin inputCheckbox {
+	@include inputText;
+
+	&:checked {
+		background: $c-primary !important;
+		border-color: $c-primary !important;
+		color: $c-white;
+	}
+
+	&:hover {
+		border-color: $c-primary !important;
+	}
+}

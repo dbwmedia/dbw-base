@@ -1,0 +1,11 @@
+@use "../global" as *;
+
+.services {
+	.flex-three {
+		margin: 50px auto;
+		.card {
+			border: 1px solid $c-black;
+			padding: 2em;
+		}
+	}
+}

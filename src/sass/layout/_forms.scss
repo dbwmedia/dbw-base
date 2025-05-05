@@ -1,0 +1,121 @@
+@use "../global" as *;
+
+.wpcf7 {
+	.wpcf7-list-item {
+		margin: 0 !important;
+	}
+
+	.form-row {
+		display: flex;
+		flex-wrap: wrap;
+		margin-bottom: 15px;
+
+		.half-width {
+			width: 48%;
+			margin-right: 4%;
+
+			&:last-child {
+				margin-right: 0;
+			}
+		}
+
+		.full-width {
+			width: 100%;
+		}
+	}
+
+	.form-group {
+		position: relative;
+		margin-bottom: 15px;
+
+		input,
+		textarea {
+			width: 100%;
+			padding: 10px;
+			font-size: 16px;
+			border: 1px solid #ccc;
+			border-radius: 10px;
+			background-color: transparent;
+			resize: none;
+			transition:
+				border-color 0.3s,
+				box-shadow 0.3s;
+
+			&:focus {
+				background-color: transparent;
+				border-color: $c-primary; /* Nutze dein Blau beim Fokussieren */
+			}
+
+			/* Wenn das Eingabefeld im Fokus ist, bewegt sich das Label nach oben */
+			&:focus + label {
+				top: -15px;
+				font-size: 12px;
+				background-color: white;
+				padding: 0 5px;
+				color: $c-primary; /* Das Label wird auch in der Primärfarbe dargestellt */
+			}
+		}
+
+		label {
+			position: absolute;
+			top: 10px;
+			left: 10px;
+			font-size: 16px;
+			color: #aaa;
+			background: transparent;
+			padding: 0 5px;
+			pointer-events: none; /* Verhindert, dass das Label anklickbar ist */
+			transition: all 0.3s ease; /* Für eine sanfte Bewegung des Labels */
+
+			&.active {
+				top: -10px;
+				font-size: 12px;
+				background-color: white;
+				padding: 0 5px;
+				color: $c-primary;
+			}
+		}
+
+		.dsgvo-text {
+			font-size: 12px;
+
+			> * {
+				font-size: 12px;
+			}
+		}
+	}
+
+	.form-group.flex {
+		> p {
+			display: flex;
+			gap: 10px;
+		}
+	}
+
+	input[type="submit"] {
+		color: #ffffff;
+		background-color: $c-primary;
+		border-radius: $border-radius-xl;
+
+		&:hover {
+			background-color: $c-primary-hover;
+		}
+	}
+
+	form.invalid input[type="text"],
+	form.invalid input[type="email"],
+	form.invalid textarea {
+		border: 1px solid #ea2b1f; /* Deine rote Farbe */
+	}
+
+	span.wpcf7-not-valid-tip {
+		display: none; /* Versteckt die Standardfehlermeldung */
+	}
+
+	form.invalid .wpcf7-response-output,
+	form.unaccepted .wpcf7-response-output,
+	form.payment-required .wpcf7-response-output {
+		border: none;
+		padding: 0;
+	}
+}
