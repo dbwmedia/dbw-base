@@ -1,0 +1,192 @@
+@use "../global" as *;
+
+/* ----------------------------------------------------------
+    Basic Card Styles
+---------------------------------------------------------- */
+.card {
+	// Base Styling
+	background: $c-white;
+	border-radius: $borderRadiusS;
+	box-shadow: $b-shadow;
+	padding: $s-sm;
+	position: relative;
+	overflow: hidden;
+
+	// Smooth Transitions
+	transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+
+	// Hover State
+	&:hover {
+		transform: translateY(-4px);
+		box-shadow: $b-shadow-hover;
+	}
+
+	// Card Header
+	&__header {
+		margin-bottom: $s-xs;
+
+		.card__title {
+			font-size: $f-sizeH4;
+			font-weight: $f-weightBold;
+			color: $f-colorHeading;
+			margin-bottom: calc($s-xs / 2);
+			line-height: $f-lineHeightTight;
+		}
+
+		.card__subtitle {
+			font-size: $f-sizeSmall;
+			color: $c-gray;
+			font-weight: $f-weightNormal;
+		}
+	}
+
+	// Card Body
+	&__body {
+		margin-bottom: $s-xs;
+
+		p {
+			font-size: $f-sizeBody;
+			color: $f-colorText;
+			line-height: $f-lineHeightNormal;
+			margin-bottom: calc($s-xs / 2);
+
+			&:last-child {
+				margin-bottom: 0;
+			}
+		}
+	}
+
+	// Card Footer
+	&__footer {
+		padding-top: $s-xs;
+		border-top: 1px solid $c-grayLight;
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		gap: $s-xs;
+	}
+
+	// Card Image (wenn vorhanden)
+	&__image {
+		width: 100%;
+		height: 200px;
+		object-fit: cover;
+		border-radius: $borderRadiusS;
+		margin-bottom: $s-xs;
+	}
+
+	/* ----------------------------------
+     Card Variations
+  ---------------------------------- */
+
+	// Compact Card
+	&--compact {
+		padding: $s-xs;
+		border-radius: $borderRadiusXS;
+
+		.card__header .card__title {
+			font-size: $f-sizeH5;
+		}
+
+		.card__image {
+			height: 150px;
+			border-radius: $borderRadiusXS;
+		}
+	}
+
+	// Large Card
+	&--large {
+		padding: $s-md;
+		border-radius: $borderRadiusSM;
+
+		.card__header .card__title {
+			font-size: $f-sizeH3;
+		}
+
+		.card__image {
+			height: 250px;
+			border-radius: $borderRadiusSM;
+		}
+	}
+
+	// Outlined Card
+	&--outlined {
+		background: transparent;
+		border: 2px solid $c-grayLight;
+		box-shadow: none;
+
+		&:hover {
+			border-color: $c-primary;
+			box-shadow: $b-shadow;
+		}
+	}
+
+	// Glass Card
+	&--glass {
+		background: $b-glass-bg;
+		border: 1px solid $b-glass-border;
+		backdrop-filter: blur(16px);
+		box-shadow: $b-shadow;
+
+		&:hover {
+			background: rgba($c-white, 0.9);
+			border-color: rgba($c-white, 0.3);
+		}
+	}
+
+	// Primary Card
+	&--primary {
+		background: $b-primary-gradient;
+		color: $c-white;
+
+		.card__title,
+		.card__subtitle,
+		.card__body p {
+			color: $c-white;
+		}
+
+		.card__footer {
+			border-color: rgba($c-white, 0.2);
+		}
+
+		&:hover {
+			filter: brightness(1.1);
+		}
+	}
+
+	/* ----------------------------------
+     Responsive Behavior
+  ---------------------------------- */
+	@media (max-width: $tablet) {
+		padding: $s-xs;
+
+		.card__image {
+			height: 180px;
+		}
+
+		&--large {
+			padding: $s-sm;
+
+			.card__image {
+				height: 200px;
+			}
+		}
+	}
+
+	/* ----------------------------------
+     Accessibility
+  ---------------------------------- */
+	&:focus-within {
+		box-shadow: $b-focus-ring, $b-shadow-hover;
+		outline: none;
+	}
+
+	// Reduced Motion
+	@media (prefers-reduced-motion: reduce) {
+		transition: none;
+
+		&:hover {
+			transform: none;
+		}
+	}
+}

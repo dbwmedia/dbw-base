@@ -1,6 +1,49 @@
 @use "../global" as *;
 
 .site-footer {
-	background-color: $c-black;
-	color: $c-white;
+	.footer-wrapper {
+		border-top: 1px solid rgb(0, 0, 0, 0.1);
+		h5 {
+			font-size: 14px;
+		}
+
+		a,
+		p {
+			font-size: 12px;
+		}
+
+		.box {
+			margin-top: 20px;
+			a[class*="button"] {
+				font-size: 12px;
+				padding: 8px 16px;
+			}
+		}
+
+		.wp-block-social-links .wp-social-link svg {
+			height: 1.75em;
+			width: 1.75em;
+		}
+	}
+
+	@include mq($until: $mobile) {
+		.footer-wrapper {
+			.logo {
+				display: none;
+			}
+			.box {
+				flex-direction: column;
+				gap: 20px;
+			}
+		}
+	}
+}
+
+div.custom-site-footer footer.site-info {
+	font-size: 10px !important;
+
+	a,
+	p {
+		font-size: 10px !important;
+	}
 }

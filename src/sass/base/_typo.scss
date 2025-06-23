@@ -1,29 +1,91 @@
 @use "../global" as *;
 
+//--------------------------------------------------------------
+// # Typography System
+//--------------------------------------------------------------
 
 body {
 	font-size: $f-sizeBody;
-	color: $c-body;
-	font-family: Helvetica, Arial, sans-serif;
+	color: $f-colorText;
+	font-family: $f-font;
+	line-height: $f-lineHeightNormal;
+	letter-spacing: $f-letterSpacingNormal;
+	font-weight: $f-weightBody;
+
+	// 2025 font rendering optimizations
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+	text-rendering: optimizeLegibility;
+	font-variant-ligatures: common-ligatures;
+	font-feature-settings:
+		"kern" 1,
+		"liga" 1,
+		"calt" 1;
 }
 
+// Consistent Font Family
 body,
 button,
 input,
 select,
 textarea {
-	font-family: Helvetica, Arial, sans-serif;
+	font-family: $f-font;
 }
 
+// Modern Paragraph Styling
 p {
-	margin-bottom: 0.8em;
+	margin-bottom: $f-marginP;
 	font-size: $f-sizeBody;
+	line-height: $f-lineHeightNormal;
+	letter-spacing: $f-letterSpacingNormal;
+	color: $f-colorText;
+
+	// Modern text balancing for better readability
+	text-wrap: pretty;
 
 	&:last-child {
 		margin-bottom: 0;
 	}
+
+	// Text size variations
+	&.text-small {
+		font-size: $f-sizeSmall;
+		line-height: $f-lineHeightSnug;
+	}
+
+	&.text-large {
+		font-size: $f-sizeLarge;
+		line-height: $f-lineHeightRelaxed;
+	}
 }
 
+// 2025 Modern Link Styles
+a {
+	color: inherit;
+	text-decoration: underline;
+	text-decoration-thickness: 1px;
+	text-underline-offset: 0.15em;
+	text-decoration-color: rgba($f-colorText, 0.4);
+	transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+	font-size: $f-sizeBody;
+
+	&:hover {
+		color: $c-secondary;
+		text-decoration-color: $c-secondary;
+		text-decoration-thickness: 2px;
+		text-underline-offset: 0.2em;
+		opacity: 0.9;
+	}
+
+	&:focus-visible {
+		outline: 2px solid $c-primary;
+		outline-offset: 2px;
+		border-radius: 3px;
+		text-decoration: none;
+	}
+}
+
+// Interactive Elements Transitions
 a,
 a:hover,
 a svg path,
@@ -35,73 +97,100 @@ input[type="button"] {
 	cursor: pointer;
 }
 
-a {
-	text-decoration: underline;
-	transition: color 0.3s;
-	font-size: $f-sizeBody;
-
-	&:hover {
-		color: $c-secondary;
-		opacity: 0.9;
-		text-decoration: underline;
-	}
-}
-
+// Ultra-Modern Heading System
 h1,
 %h1 {
-	font-size: clamp(32px, 8vmin, 88px);
-	font-weight: 820;
-	letter-spacing: -0.02em;
-	line-height: 1.05;
+	font-size: clamp($f-sizeH1Min, 8vmin, $f-sizeH1Max);
+	font-weight: $f-weightH1;
+	letter-spacing: $f-letterSpacingTight;
+	line-height: $f-lineHeightTight;
+	color: $f-colorHeading;
+	margin-bottom: $f-marginHLarge;
 	text-align: left;
+
+	// Advanced font features for premium look
+	font-feature-settings:
+		"kern" 1,
+		"liga" 1,
+		"calt" 1,
+		"ss01" 1;
+	text-wrap: balance;
 }
 
 h2,
 %h2,
 .h2 {
-	font-size: clamp(28px, 5vmin, 40px);
-	color: $c-body;
-	font-weight: bold;
-	margin-bottom: 30px;
-	font-weight: 820;
-	letter-spacing: -0.02em;
-	line-height: 1.15;
+	font-size: clamp($f-sizeH2, 5vmin, calc($f-sizeH2 * 1.2));
+	color: $f-colorHeading;
+	font-weight: $f-weightH2;
+	letter-spacing: $f-letterSpacingTight;
+	line-height: $f-lineHeightSnug;
+	margin-bottom: $f-marginHMedium;
+
+	font-feature-settings:
+		"kern" 1,
+		"liga" 1,
+		"calt" 1;
+	text-wrap: balance;
+
+	// Enhanced Highlight System
 	&--highlighted {
 		mark.gb-highlight {
 			position: relative;
 			line-height: 1.3;
+			background: transparent;
+			color: inherit;
+			padding: 0;
+
+			&::after {
+				content: "";
+				position: absolute;
+				bottom: 0.1em;
+				left: -0.05em;
+				right: -0.05em;
+				height: 0.15em;
+				border-radius: 0.075em;
+				z-index: -1;
+				opacity: 0.8;
+			}
 		}
 
 		&__primary {
 			mark.gb-highlight {
-				&:after {
-					background-color: $c-primary;
+				&::after {
+					background: linear-gradient(
+						90deg,
+						$c-primary,
+						lighten($c-primary, 15%)
+					);
 				}
 			}
 		}
 
 		&__white {
 			mark.gb-highlight {
-				&:after {
-					background-color: $c-white;
+				&::after {
+					background: $c-white;
 				}
 			}
 		}
 
 		&__body {
 			mark.gb-highlight {
-				&:after {
-					background-color: $c-body;
+				&::after {
+					background: $f-colorText;
 				}
 			}
 		}
 
 		&__centered {
-			margin-bottom: 20px;
+			text-align: center;
+			margin-bottom: $f-marginHSmall;
+
 			mark.gb-highlight {
-				&:after {
+				&::after {
 					left: 50%;
-					translate: -50%;
+					transform: translateX(-50%);
 				}
 			}
 		}
@@ -110,23 +199,152 @@ h2,
 
 h3,
 %h3 {
-	font-size: clamp(24px, 5vmin, 32px);
-	line-height: 1.05;
-	font-weight: bold;
+	font-size: clamp($f-sizeH3, 5vmin, calc($f-sizeH3 * 1.1));
+	line-height: $f-lineHeightSnug;
+	font-weight: $f-weightH3;
+	color: $f-colorHeading;
+	letter-spacing: $f-letterSpacingTight;
+	margin-bottom: $f-marginHMedium;
+	text-wrap: balance;
 }
 
 h4,
 %h4 {
-	font-size: clamp(22px, 5vmin, 28px);
-	line-height: 1.05;
-	font-weight: bold;
+	font-size: clamp($f-sizeH4, 5vmin, $f-sizeH4);
+	line-height: $f-lineHeightSnug;
+	font-weight: $f-weightH4;
+	color: $f-colorHeading;
+	letter-spacing: $f-letterSpacingNormal;
+	margin-bottom: $f-marginHSmall;
 }
 
+h5,
+%h5 {
+	font-size: $f-sizeH5;
+	line-height: $f-lineHeightSnug;
+	font-weight: $f-weightH5;
+	color: $f-colorHeading;
+	letter-spacing: $f-letterSpacingNormal;
+	margin-bottom: $f-marginHSmall;
+}
+
+h6,
+%h6 {
+	font-size: $f-sizeH6;
+	line-height: $f-lineHeightSnug;
+	font-weight: $f-weightH6;
+	color: $f-colorHeading;
+	text-transform: uppercase;
+	letter-spacing: $f-letterSpacingWide;
+	margin-bottom: $f-marginHSmall;
+}
+
+// Modern Text Utilities
+.text-highlight {
+	color: $c-primary;
+	font-weight: $f-weightSemibold;
+}
+
+.text-muted {
+	color: $c-gray;
+	font-weight: $f-weightNormal;
+}
+
+.text-small {
+	font-size: $f-sizeSmall;
+	line-height: $f-lineHeightSnug;
+}
+
+.text-large {
+	font-size: $f-sizeLarge;
+	line-height: $f-lineHeightRelaxed;
+	font-weight: $f-weightNormal;
+}
+
+.text-center {
+	text-align: center;
+}
+
+.text-balance {
+	text-wrap: balance;
+}
+
+.text-pretty {
+	text-wrap: pretty;
+}
+
+// Legacy Support
 mark,
 .gb-highlight {
 	color: inherit;
+	background: transparent;
 }
 
 .highlight-text {
 	color: $c-primary;
+	font-weight: $f-weightSemibold;
+}
+
+//--------------------------------------------------------------
+// # Responsive Typography (Smart Scaling)
+//--------------------------------------------------------------
+
+@media (max-width: $tablet) {
+	body {
+		font-size: calc($f-sizeBody * 0.94); // 17px
+	}
+
+	h1,
+	%h1 {
+		margin-bottom: calc($f-marginHLarge * 0.8);
+	}
+
+	h2,
+	%h2,
+	.h2 {
+		margin-bottom: calc($f-marginHMedium * 0.8);
+	}
+}
+
+@media (max-width: $mobile) {
+	body {
+		font-size: calc($f-sizeBody * 0.89); // 16px
+		line-height: $f-lineHeightRelaxed; // More breathing room on mobile
+	}
+
+	p {
+		margin-bottom: calc($f-marginP * 1.2);
+	}
+
+	// Optimize touch targets
+	a {
+		text-underline-offset: 0.2em;
+	}
+}
+
+//--------------------------------------------------------------
+// # Print Optimizations
+//--------------------------------------------------------------
+
+@media print {
+	body {
+		font-size: 12pt;
+		line-height: 1.4;
+		color: black;
+	}
+
+	h1,
+	h2,
+	h3,
+	h4,
+	h5,
+	h6 {
+		color: black;
+		page-break-after: avoid;
+	}
+
+	p {
+		orphans: 3;
+		widows: 3;
+	}
 }

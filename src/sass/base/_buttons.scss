@@ -1,0 +1,340 @@
+@use "../global" as *;
+
+/* ----------------------------------------------------------
+    Button Styles
+---------------------------------------------------------- */
+
+a[class*="button"]:not(.our-work):not(.button-icon):not(.gb-accordion__toggle) {
+	// Base Styling
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	gap: 8px;
+	padding: $b-padding;
+	border-radius: $b-borderRadius;
+	font-size: $f-sizeBody;
+	font-weight: $b-font-weight;
+	letter-spacing: $b-letter-spacing;
+	text-decoration: none;
+	position: relative;
+	overflow: hidden;
+	cursor: pointer;
+	border: none;
+	outline: none;
+	white-space: nowrap;
+
+	// Smooth Transitions
+	transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+
+	// Ripple Effect
+	&::before {
+		content: "";
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		width: 0;
+		height: 0;
+		border-radius: 50%;
+		background: rgba($c-white, 0.3);
+		transform: translate(-50%, -50%);
+		transition:
+			width 0.6s ease,
+			height 0.6s ease;
+		pointer-events: none;
+		z-index: 1;
+	}
+
+	// Content Layer
+	& > * {
+		position: relative;
+		z-index: 2;
+	}
+
+	// Focus State
+	&:focus-visible {
+		box-shadow: $b-focus-ring;
+	}
+
+	// Active Ripple
+	&:active::before {
+		width: 300px;
+		height: 300px;
+		transition:
+			width 0.1s ease,
+			height 0.1s ease;
+	}
+
+	// Responsive
+	@media (max-width: 768px) {
+		padding: 16px 24px;
+		min-height: 48px;
+	}
+
+	@media (max-width: 480px) {
+		width: 100%;
+		padding: 16px 20px;
+	}
+
+	/* ----------------------------------
+     Primary Button
+  ---------------------------------- */
+	&.button--primary {
+		background: $b-primary-gradient;
+		color: $c-white;
+		box-shadow: $b-shadow;
+
+		&:hover {
+			transform: translateY(-2px) scale(1.02);
+			box-shadow: $b-shadow-hover;
+			filter: brightness(1.1);
+			color: $c-white !important;
+			text-decoration: none;
+		}
+
+		&:active {
+			transform: translateY(0) scale(0.98);
+		}
+	}
+
+	/* ----------------------------------
+     Black Button
+  ---------------------------------- */
+	&.button--black {
+		background: $c-black;
+		color: $c-white;
+		box-shadow: $b-shadow;
+
+		&:hover {
+			background: lighten($c-black, 10%);
+			transform: translateY(-1px);
+			box-shadow: $b-shadow-hover;
+			color: $c-white;
+			text-decoration: none;
+		}
+
+		&:active {
+			background: darken($c-black, 5%);
+			transform: translateY(0) scale(0.98);
+		}
+	}
+
+	/* ----------------------------------
+     Outline Button
+  ---------------------------------- */
+	&.button--outline {
+		background: rgba($c-white, 0.8);
+		border: $b-borderWidth $b-borderStyle $c-body;
+		color: $c-body;
+		backdrop-filter: blur(10px);
+		box-sizing: border-box;
+
+		&:hover {
+			background: $c-black !important;
+			color: $c-white !important;
+			border-color: $c-black;
+			transform: translateY(-1px);
+			box-shadow: $b-shadow-hover;
+			text-decoration: none;
+		}
+
+		&:active {
+			transform: translateY(0) scale(0.98);
+		}
+	}
+
+	/* ----------------------------------
+     Glass Button
+  ---------------------------------- */
+	&.button--glass {
+		background: $b-glass-bg;
+		border: $b-borderWidth $b-borderStyle $b-glass-border;
+		color: $c-body;
+		backdrop-filter: blur(16px);
+		box-shadow: $b-shadow;
+
+		&:hover {
+			background: rgba($c-white, 0.2);
+			border-color: rgba($c-white, 0.3);
+			transform: translateY(-1px);
+			box-shadow: $b-shadow-hover;
+			text-decoration: none;
+		}
+
+		&:active {
+			background: rgba($c-white, 0.05);
+			transform: translateY(0) scale(0.98);
+		}
+	}
+
+	/* ----------------------------------
+     Accent Button (New)
+  ---------------------------------- */
+	&.button--accent {
+		background: $b-accent-gradient;
+		color: $c-white;
+		box-shadow: $b-shadow;
+
+		&:hover {
+			transform: translateY(-2px) scale(1.02);
+			box-shadow: $b-shadow-hover;
+			filter: brightness(1.1);
+			color: $c-white !important;
+			text-decoration: none;
+		}
+
+		&:active {
+			transform: translateY(0) scale(0.98);
+		}
+	}
+
+	/* ----------------------------------
+     Success Button (New)
+  ---------------------------------- */
+	&.button--success {
+		background: linear-gradient(
+			135deg,
+			$c-success 0%,
+			lighten($c-success, 10%) 100%
+		);
+		color: $c-white;
+		box-shadow: $b-shadow;
+
+		&:hover {
+			transform: translateY(-1px);
+			box-shadow: $b-shadow-hover;
+			filter: brightness(1.1);
+			color: $c-white !important;
+			text-decoration: none;
+		}
+
+		&:active {
+			transform: translateY(0) scale(0.98);
+		}
+	}
+
+	/* ----------------------------------
+     Warning Button (New)
+  ---------------------------------- */
+	&.button--warning {
+		background: linear-gradient(
+			135deg,
+			$c-warning 0%,
+			lighten($c-warning, 8%) 100%
+		);
+		color: $c-white;
+		box-shadow: $b-shadow;
+
+		&:hover {
+			transform: translateY(-1px);
+			box-shadow: $b-shadow-hover;
+			filter: brightness(1.1);
+			color: $c-white !important;
+			text-decoration: none;
+		}
+
+		&:active {
+			transform: translateY(0) scale(0.98);
+		}
+	}
+
+	/* ----------------------------------
+     DBW Button (Legacy Support)
+  ---------------------------------- */
+	&.button--dbw {
+		background: var(--dbw-gradient) !important;
+		color: $c-white !important;
+		border: none;
+		box-shadow: $b-shadow;
+
+		&:hover {
+			filter: brightness(1.1);
+			transform: translateY(-2px) scale(1.02);
+			box-shadow: $b-shadow-hover;
+			color: $c-white !important;
+			text-decoration: none;
+		}
+
+		&:active {
+			transform: translateY(0) scale(0.98);
+		}
+	}
+
+	/* ----------------------------------
+     Size Variations
+  ---------------------------------- */
+	&.button--small {
+		padding: $b-padding-small;
+		font-size: $f-sizeSmall;
+		border-radius: $b-borderRadius-small;
+	}
+
+	&.button--large {
+		padding: $b-padding-large;
+		font-size: $f-sizeLarge;
+		border-radius: $b-borderRadius-large;
+		font-weight: 700;
+	}
+
+	/* ----------------------------------
+     Icon Buttons
+  ---------------------------------- */
+	&.button--icon {
+		padding: 14px 20px 14px 16px;
+
+		svg {
+			width: 18px;
+			height: 18px;
+			transition: transform 0.3s ease;
+		}
+
+		&:hover svg {
+			transform: translateX(2px);
+		}
+	}
+
+	/* ----------------------------------
+     Accessibility
+  ---------------------------------- */
+	@media (prefers-reduced-motion: reduce) {
+		transition: none;
+
+		&::before {
+			display: none;
+		}
+
+		&:hover {
+			transform: none;
+		}
+	}
+}
+
+/* ----------------------------------
+   Dark Mode Support
+---------------------------------- */
+@media (prefers-color-scheme: dark) {
+	a[class*="button"] {
+		&.button--outline {
+			background: rgba($c-black, 0.3);
+			border-color: rgba($c-white, 0.3);
+			color: rgba($c-white, 0.9);
+
+			&:hover {
+				background: rgba($c-white, 0.1) !important;
+				border-color: rgba($c-white, 0.5);
+				color: $c-white !important;
+			}
+		}
+
+		&.button--glass {
+			background: rgba($c-black, 0.2);
+			border-color: rgba($c-white, 0.1);
+			color: rgba($c-white, 0.9);
+
+			&:hover {
+				background: rgba($c-black, 0.4);
+				border-color: rgba($c-white, 0.2);
+				color: $c-white;
+			}
+		}
+	}
+}

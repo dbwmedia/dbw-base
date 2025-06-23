@@ -16,3 +16,38 @@
 		margin-top: $s-md;
 	}
 }
+
+.text--narrow {
+	width: 100%;
+	max-width: 80%;
+
+	@media (max-width: 767px) {
+		max-width: 100%;
+	}
+}
+
+.btn-container {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 20px;
+}
+
+.stretch-link {
+	position: relative;
+
+	a {
+		&::after {
+			content: "";
+			position: absolute;
+			inset: 0;
+		}
+
+		&:is(:focus-visible)::after {
+			outline: 2px solid;
+		}
+
+		&:is(:hover, :focus) {
+			outline: none;
+		}
+	}
+}

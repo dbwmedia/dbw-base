@@ -1,11 +1,12 @@
 @use "../global" as *;
 
-.gb-container {
+section,
+.section {
 	&--content__regular {
 		@include containerWrap;
 	}
 
-	&--content__fullwidth {
+	&--fullwidth {
 		width: 100%;
 		padding: $s-md 10%;
 		@media (max-width: 1200px) {

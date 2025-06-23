@@ -15,21 +15,22 @@
 	"license": "ISC",
 	"dependencies": {
 		"@splidejs/splide": "^4.1.4",
-		"axios": "^1.7.7",
-		"lighthouse": "^12.2.1",
-		"sass-loader": "^16.0.2",
+		"axios": "^1.10.0",
+		"lighthouse": "^12.6.1",
+		"sass-loader": "^16.0.5",
 		"slick-carousel": "^1.8.1",
-		"ws": "^8.18.0"
+		"ws": "^8.18.2"
 	},
 	"devDependencies": {
-		"@eslint/config-array": "^0.19.1",
-		"@eslint/object-schema": "^2.1.5",
-		"@formatjs/icu-messageformat-parser": "^2.11.0",
-		"@wordpress/scripts": "^30.7.0",
-		"core-js": "^3.40.0",
-		"glob": "^11.0.1",
-		"puppeteer-core": "^24.1.1",
+		"@eslint/config-array": "^0.20.1",
+		"@eslint/object-schema": "^2.1.6",
+		"@formatjs/icu-messageformat-parser": "^2.11.2",
+		"@wordpress/scripts": "^30.18.0",
+		"core-js": "^3.43.0",
+		"eslint": "^8.57.1",
+		"glob": "^11.0.3",
+		"puppeteer-core": "^24.10.2",
 		"rimraf": "^6.0.1",
-		"sass": "^1.83.4"
+		"sass": "^1.89.2"
 	}
 }
