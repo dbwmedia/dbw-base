@@ -1,5 +1,20 @@
 # Changelog
 
+## [1.3.1] - 24.06.2025
+
+### Behoben
+
+- **Custom Login Security Überarbeitung**:
+  - Singleton Pattern implementiert für sichere Instanziierung
+  - Password-Reset-Funktionalität komplett gefixed (404-Fehler behoben)
+  - POST-Requests für `lostpassword` Action werden korrekt durchgelassen
+  - E-Mail-URL-Ersetzung mit Multiple Pattern-Matching für alle URL-Formate
+  - `wp_safe_redirect()` statt `wp_redirect()` für erhöhte Sicherheit
+  - Erlaubte Admin-Pfade (admin-ajax.php, admin-post.php) für AJAX-Funktionalität
+  - Theme-Switch Hooks für Aktivierung und Deaktivierung
+  - Korrekte Kapselung aller Methoden innerhalb der Klasse
+  - `site_url` Filter als zusätzliche Sicherheitsebene für Reset-URLs
+
 ## [1.3.0] - 23.06.2025
 
 ### Hinzugefügt
