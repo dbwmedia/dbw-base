@@ -164,18 +164,6 @@ const Component_UpdateDynamicAnchors = () => {
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Component_UpdateDynamicAnchors);
 
-/***/ }),
-
-/***/ "./src/sass/_index.scss":
-/*!******************************!*\
-  !*** ./src/sass/_index.scss ***!
-  \******************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-__webpack_require__.r(__webpack_exports__);
-// extracted by mini-css-extract-plugin
-
-
 /***/ })
 
 /******/ 	});
@@ -241,7 +229,7 @@ var __webpack_exports__ = {};
   !*** ./src/js/index.js ***!
   \*************************/
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _sass_index_scss__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../sass/_index.scss */ "./src/sass/_index.scss");
+Object(function webpackMissingModule() { var e = new Error("Cannot find module '../sass/_index.scss'"); e.code = 'MODULE_NOT_FOUND'; throw e; }());
 /* harmony import */ var _components_offsetScroll__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./components/offsetScroll */ "./src/js/components/offsetScroll.js");
 /* harmony import */ var _components_scrollHandler__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./components/scrollHandler */ "./src/js/components/scrollHandler.js");
 /* harmony import */ var _components_updateDynamicAnchors__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./components/updateDynamicAnchors */ "./src/js/components/updateDynamicAnchors.js");
