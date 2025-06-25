@@ -10,11 +10,10 @@ section,
 		width: 100%;
 		padding: $s-md 10%;
 		@media (max-width: 1200px) {
-			padding: 64px 3%;
+			padding: $s-sm 3%;
 		}
 
 		@media (max-width: 500px) {
-			padding: 64px 3%;
 		}
 
 		& > * {

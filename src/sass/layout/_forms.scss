@@ -1,121 +1,699 @@
 @use "../global" as *;
 
+//--------------------------------------------------------------
+// # Contact Form 7 - Ultra Clean 2025 Design
+//--------------------------------------------------------------
+
+// CSS Custom Properties
+:root {
+	--cf7-font: #{$f-font};
+	--cf7-font-size: #{$f-sizeBody};
+	--cf7-primary: #{$c-primary};
+	--cf7-primary-hover: #{$c-primary-hover};
+	--cf7-text: #{$f-colorText};
+	--cf7-text-light: #{$c-gray};
+	--cf7-border: #{$c-grayLight};
+	--cf7-border-focus: #{$c-primary};
+	--cf7-bg: #{$c-white};
+	--cf7-bg-light: #{$c-grayBg};
+	--cf7-success: #{$c-success};
+	--cf7-error: #{$c-secondary};
+	--cf7-radius: #{$b-borderRadius};
+	--cf7-shadow: #{$b-shadow};
+	--cf7-shadow-focus: 0 0 0 3px #{rgba($c-primary, 0.15)};
+}
+
+/* ----------------------------------
+   Reset & Base
+---------------------------------- */
 .wpcf7 {
+	font-family: var(--cf7-font);
+	width: 100%;
+
+	* {
+		box-sizing: border-box;
+	}
+
+	// Remove CF7 defaults and chaos
 	.wpcf7-list-item {
 		margin: 0 !important;
 	}
 
-	.form-row {
+	p {
+		margin: 0;
+		width: 100%;
 		display: flex;
-		flex-wrap: wrap;
-		margin-bottom: 15px;
+		flex-direction: column;
+	}
 
-		.half-width {
-			width: 48%;
-			margin-right: 4%;
+	br {
+		display: none !important; // Kill all CF7 line breaks
+	}
+}
 
-			&:last-child {
-				margin-right: 0;
-			}
-		}
+/* ----------------------------------
+   Grid System
+---------------------------------- */
+.form-row {
+	display: grid;
+	gap: $s-xs;
+	margin-bottom: $s-sm;
 
-		.full-width {
-			width: 100%;
+	&--1 {
+		grid-template-columns: 1fr;
+	}
+
+	&--2 {
+		grid-template-columns: repeat(2, 1fr);
+
+		@media (max-width: $tablet) {
+			grid-template-columns: 1fr;
 		}
 	}
 
-	.form-group {
-		position: relative;
-		margin-bottom: 15px;
+	&--3 {
+		grid-template-columns: repeat(3, 1fr);
 
-		input,
-		textarea {
-			width: 100%;
-			padding: 10px;
-			font-size: 16px;
-			border: 1px solid #ccc;
-			border-radius: 10px;
-			background-color: transparent;
-			resize: none;
-			transition:
-				border-color 0.3s,
-				box-shadow 0.3s;
-
-			&:focus {
-				background-color: transparent;
-				border-color: $c-primary; /* Nutze dein Blau beim Fokussieren */
-			}
-
-			/* Wenn das Eingabefeld im Fokus ist, bewegt sich das Label nach oben */
-			&:focus + label {
-				top: -15px;
-				font-size: 12px;
-				background-color: white;
-				padding: 0 5px;
-				color: $c-primary; /* Das Label wird auch in der Primärfarbe dargestellt */
-			}
-		}
-
-		label {
-			position: absolute;
-			top: 10px;
-			left: 10px;
-			font-size: 16px;
-			color: #aaa;
-			background: transparent;
-			padding: 0 5px;
-			pointer-events: none; /* Verhindert, dass das Label anklickbar ist */
-			transition: all 0.3s ease; /* Für eine sanfte Bewegung des Labels */
-
-			&.active {
-				top: -10px;
-				font-size: 12px;
-				background-color: white;
-				padding: 0 5px;
-				color: $c-primary;
-			}
-		}
-
-		.dsgvo-text {
-			font-size: 12px;
-
-			> * {
-				font-size: 12px;
-			}
+		@media (max-width: $tablet) {
+			grid-template-columns: 1fr;
 		}
 	}
+}
 
-	.form-group.flex {
-		> p {
-			display: flex;
-			gap: 10px;
-		}
+/* ----------------------------------
+   Form Groups - Fixed Label System
+---------------------------------- */
+.form-group {
+	position: relative;
+	display: flex;
+	flex-direction: column;
+
+	// Labels - ALWAYS on top first
+	> p > label:first-child,
+	> label:first-child {
+		order: -2; // Force to top
+		font-size: 14px;
+		font-weight: $f-weightMedium;
+		color: var(--cf7-text);
+		margin-bottom: 8px;
+		line-height: 1.4;
+		display: block !important;
 	}
 
-	input[type="submit"] {
-		color: #ffffff;
-		background-color: $c-primary;
-		border-radius: $border-radius-xl;
+	// CF7 wrapper - force order
+	.wpcf7-form-control-wrap {
+		order: -1;
+	}
+
+	// All text inputs
+	input:not([type="submit"]):not([type="checkbox"]):not([type="radio"]):not(
+			[type="file"]
+		),
+	textarea {
+		width: 100%;
+		padding: nth($b-padding, 1) nth($b-padding, 2);
+		font-family: var(--cf7-font);
+		font-size: var(--cf7-font-size);
+		color: var(--cf7-text);
+		background: var(--cf7-bg);
+		border: 1px solid var(--cf7-border);
+		border-radius: var(--cf7-radius);
+		outline: none;
+		transition: $t-transition;
+		line-height: 1.5;
+
+		&::placeholder {
+			color: var(--cf7-text-light);
+			opacity: 0.7;
+		}
 
 		&:hover {
-			background-color: $c-primary-hover;
+			border-color: var(--cf7-primary);
+		}
+
+		&:focus {
+			border-color: var(--cf7-border-focus);
+			box-shadow: var(--cf7-shadow-focus);
+		}
+
+		// Fix CF7 validation colors
+		&.wpcf7-not-valid {
+			border-color: var(--cf7-error) !important;
+			box-shadow: 0 0 0 3px rgba($c-secondary, 0.1) !important;
 		}
 	}
 
-	form.invalid input[type="text"],
-	form.invalid input[type="email"],
-	form.invalid textarea {
-		border: 1px solid #ea2b1f; /* Deine rote Farbe */
+	// Textarea specific
+	textarea {
+		min-height: 120px;
+		resize: vertical;
+		font-family: inherit;
 	}
 
-	span.wpcf7-not-valid-tip {
-		display: none; /* Versteckt die Standardfehlermeldung */
+	// Select styling
+	select {
+		width: 100%;
+		padding: nth($b-padding, 1) nth($b-padding, 2);
+		padding-right: 40px;
+		font-family: var(--cf7-font);
+		font-size: var(--cf7-font-size);
+		color: var(--cf7-text);
+		background: var(--cf7-bg);
+		border: 1px solid var(--cf7-border);
+		border-radius: var(--cf7-radius);
+		outline: none;
+		cursor: pointer;
+		transition: $t-transition;
+		appearance: none;
+
+		// Custom arrow
+		background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'%3E%3Cpath fill='%23#{str-slice('#{$c-gray}', 2)}' d='M8 11L3 6h10l-5 5z'/%3E%3C/svg%3E");
+		background-repeat: no-repeat;
+		background-position: right 12px center;
+		background-size: 16px;
+
+		&:hover {
+			border-color: var(--cf7-primary);
+		}
+
+		&:focus {
+			border-color: var(--cf7-border-focus);
+			box-shadow: var(--cf7-shadow-focus);
+		}
+
+		// First option styling
+		option:first-child {
+			color: var(--cf7-text-light);
+			font-style: italic;
+		}
+
+		// Fix CF7 validation colors
+		&.wpcf7-not-valid {
+			border-color: var(--cf7-error) !important;
+			box-shadow: 0 0 0 3px rgba($c-secondary, 0.1) !important;
+		}
+	}
+}
+
+/* ----------------------------------
+   File Upload - Modern Design
+---------------------------------- */
+.form-group input[type="file"] {
+	position: relative;
+	width: 100%;
+	height: auto;
+	padding: $s-xs;
+	font-family: var(--cf7-font);
+	font-size: 14px;
+	color: var(--cf7-text);
+	background: var(--cf7-bg);
+	border: 2px dashed var(--cf7-border);
+	border-radius: var(--cf7-radius);
+	cursor: pointer;
+	transition: $t-transition;
+
+	&:hover {
+		border-color: var(--cf7-primary);
+		background: var(--cf7-bg-light);
 	}
 
-	form.invalid .wpcf7-response-output,
-	form.unaccepted .wpcf7-response-output,
-	form.payment-required .wpcf7-response-output {
+	&:focus {
+		outline: none;
+		border-color: var(--cf7-border-focus);
+		box-shadow: var(--cf7-shadow-focus);
+	}
+
+	// Modern file selector button
+	&::file-selector-button {
+		background: var(--cf7-primary);
+		color: white;
 		border: none;
-		padding: 0;
+		padding: 8px 16px;
+		border-radius: calc(var(--cf7-radius) - 2px);
+		font-family: var(--cf7-font);
+		font-size: 14px;
+		font-weight: $f-weightMedium;
+		cursor: pointer;
+		margin-right: 12px;
+		transition: $t-transition;
+
+		&:hover {
+			background: var(--cf7-primary-hover);
+			transform: translateY(-1px);
+		}
 	}
+}
+
+.file-hint {
+	font-size: 12px;
+	color: var(--cf7-text-light);
+	margin-top: 6px;
+	display: block;
+	order: 1; // After input
+}
+
+/* ----------------------------------
+   Radio & Checkbox Groups - Clean Design
+---------------------------------- */
+.form-group--radio,
+.form-group--checkbox {
+	.group-label {
+		font-size: 14px;
+		font-weight: $f-weightMedium;
+		color: var(--cf7-text);
+		margin-bottom: 12px;
+		display: block;
+		order: -2; // Always first
+	}
+
+	.wpcf7-form-control-wrap {
+		background: var(--cf7-bg-light);
+		border: 1px solid var(--cf7-border);
+		border-radius: var(--cf7-radius);
+		padding: $s-xs;
+		order: -1;
+	}
+
+	.wpcf7-radio,
+	.wpcf7-checkbox {
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+		gap: 12px;
+
+		@media (max-width: $tablet) {
+			grid-template-columns: 1fr;
+		}
+	}
+
+	.wpcf7-list-item {
+		margin: 0 !important;
+
+		label {
+			display: flex;
+			align-items: center;
+			gap: 8px;
+			font-size: var(--cf7-font-size);
+			color: var(--cf7-text);
+			cursor: pointer;
+			padding: 6px 0;
+			margin: 0;
+			font-weight: $f-weightNormal;
+		}
+	}
+}
+
+/* ----------------------------------
+   Custom Radio Buttons
+---------------------------------- */
+.wpcf7 input[type="radio"] {
+	-webkit-appearance: none;
+	appearance: none;
+	width: 18px;
+	height: 18px;
+	border: 2px solid var(--cf7-border);
+	border-radius: 50%;
+	background: var(--cf7-bg);
+	cursor: pointer;
+	transition: $t-transition;
+	flex-shrink: 0;
+
+	&:hover {
+		border-color: var(--cf7-primary);
+	}
+
+	&:checked {
+		border-color: var(--cf7-primary);
+		background: var(--cf7-primary);
+
+		&::before {
+			content: "";
+			display: block;
+			width: 6px;
+			height: 6px;
+			border-radius: 50%;
+			background: white;
+			margin: 4px auto;
+		}
+	}
+
+	&:focus {
+		outline: none;
+		box-shadow: var(--cf7-shadow-focus);
+	}
+}
+
+/* ----------------------------------
+   Custom Checkboxes
+---------------------------------- */
+.wpcf7 input[type="checkbox"] {
+	-webkit-appearance: none;
+	appearance: none;
+	width: 18px;
+	height: 18px;
+	border: 2px solid var(--cf7-border);
+	border-radius: 3px;
+	background: var(--cf7-bg);
+	cursor: pointer;
+	transition: $t-transition;
+	flex-shrink: 0;
+
+	&:hover {
+		border-color: var(--cf7-primary);
+	}
+
+	&:checked {
+		border-color: var(--cf7-primary);
+		background: var(--cf7-primary);
+
+		&::before {
+			content: "✓";
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			color: white;
+			font-size: 11px;
+			font-weight: bold;
+			width: 100%;
+			height: 100%;
+		}
+	}
+
+	&:focus {
+		outline: none;
+		box-shadow: var(--cf7-shadow-focus);
+	}
+}
+
+/* ----------------------------------
+   Consent Checkbox - Fixed Position Bug
+---------------------------------- */
+.form-group--consent {
+	background: var(--cf7-bg-light);
+	padding: $s-xs;
+	border-radius: var(--cf7-radius);
+	border: 1px solid var(--cf7-border);
+
+	p {
+		display: flex !important;
+		flex-direction: row !important;
+		align-items: flex-start;
+		gap: 12px;
+		margin: 0;
+	}
+
+	.wpcf7-form-control-wrap {
+		order: 0 !important; // Checkbox first
+		flex-shrink: 0;
+		align-self: flex-start; // Prevent shifting
+		margin-top: 2px; // Align with first line of text
+	}
+
+	// Fix checkbox container alignment
+	.wpcf7-acceptance {
+		display: flex;
+		align-items: flex-start;
+		margin: 0;
+	}
+
+	.wpcf7-list-item {
+		margin: 0 !important;
+		padding: 0;
+		display: flex;
+		align-items: flex-start;
+	}
+
+	label {
+		order: 1 !important; // Label after checkbox
+		font-size: 14px;
+		color: var(--cf7-text);
+		line-height: 1.5;
+		cursor: pointer;
+		margin: 0 !important;
+		flex: 1;
+
+		a {
+			color: var(--cf7-primary);
+			text-decoration: underline;
+			font-size: inherit; // Same size as surrounding text
+
+			&:hover {
+				color: var(--cf7-primary-hover);
+			}
+
+			&:focus {
+				outline: 2px solid var(--cf7-primary);
+				outline-offset: 2px;
+				border-radius: 2px;
+			}
+		}
+	}
+}
+
+/* ----------------------------------
+   Submit Button
+---------------------------------- */
+.form-group input[type="submit"] {
+	background: $b-primary-gradient;
+	color: white;
+	border: none;
+	padding: $b-padding;
+	border-radius: var(--cf7-radius);
+	font-family: var(--cf7-font);
+	font-size: $b-font-size-base;
+	font-weight: $b-font-weight;
+	letter-spacing: $b-letter-spacing;
+	cursor: pointer;
+	transition: $t-transition;
+	box-shadow: var(--cf7-shadow);
+	min-height: 48px;
+	margin-top: $s-xs;
+
+	&:hover {
+		transform: translateY(-2px);
+		box-shadow: $b-shadow-hover;
+		filter: brightness(1.05);
+	}
+
+	&:focus {
+		outline: none;
+		box-shadow: var(--cf7-shadow-focus), $b-shadow-hover;
+	}
+
+	&:active {
+		transform: translateY(0);
+	}
+
+	&:disabled {
+		opacity: 0.6;
+		cursor: not-allowed;
+		transform: none;
+
+		&:hover {
+			transform: none;
+			filter: none;
+		}
+	}
+}
+
+/* ----------------------------------
+   Error States & Validation
+---------------------------------- */
+.wpcf7-not-valid-tip {
+	display: block;
+	color: var(--cf7-error);
+	font-size: 12px;
+	margin-top: 6px;
+	font-weight: $f-weightMedium;
+	order: 2; // After input
+}
+
+// Prevent CF7 from making everything red on page load or before user interaction
+.wpcf7-form.init,
+.wpcf7-form:not(.invalid):not(.sent):not(.failed) {
+	.wpcf7-not-valid {
+		border-color: var(--cf7-border) !important;
+		box-shadow: none !important;
+	}
+
+	.wpcf7-not-valid-tip {
+		display: none !important;
+	}
+}
+
+// Only show validation errors AFTER form submission attempt
+.wpcf7-form.invalid {
+	.wpcf7-not-valid {
+		border-color: var(--cf7-error) !important;
+		box-shadow: 0 0 0 3px rgba($c-secondary, 0.1) !important;
+	}
+
+	.wpcf7-not-valid-tip {
+		display: block !important;
+	}
+}
+
+/* ----------------------------------
+   Response Messages - Modern Status Design (Parent-scoped)
+---------------------------------- */
+.wpcf7-response-output {
+	margin: $s-sm 0 !important;
+	padding: $s-xs !important;
+	border-radius: var(--cf7-radius) !important;
+	border: none !important;
+	font-size: 14px;
+	line-height: 1.5;
+	font-weight: $f-weightMedium;
+	position: relative;
+	overflow: hidden;
+	display: block !important; // Force visible even with aria-hidden
+	padding-left: calc(#{$s-xs} + 24px + 12px) !important;
+
+	&::before {
+		position: absolute;
+		left: $s-xs;
+		top: 50%;
+		transform: translateY(-50%);
+		font-size: 16px;
+		font-weight: bold;
+		background: white;
+		width: 24px;
+		height: 24px;
+		border-radius: 50%;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+	}
+
+	&:empty {
+		display: none !important;
+	}
+}
+
+/* ✅ Erfolgreich gesendet */
+form.sent .wpcf7-response-output {
+	background: linear-gradient(
+		135deg,
+		lighten($c-success, 50%) 0%,
+		lighten($c-success, 45%) 100%
+	);
+	color: darken($c-success, 10%);
+	border: 2px dashed lighten($c-success, 20%) !important;
+	box-shadow:
+		0 4px 12px rgba($c-success, 0.15),
+		inset 0 1px 0 rgba(white, 0.8);
+	animation: successPulse 0.6s ease-out;
+
+	&::before {
+		content: "✓";
+		color: $c-success;
+		box-shadow: 0 2px 4px rgba($c-success, 0.2);
+	}
+}
+
+/* ❌ Fehler beim Absenden */
+form.invalid .wpcf7-response-output {
+	background: linear-gradient(
+		135deg,
+		lighten($c-secondary, 50%) 0%,
+		lighten($c-secondary, 45%) 100%
+	);
+	color: darken($c-secondary, 10%);
+	border: 2px dashed lighten($c-secondary, 20%) !important;
+	box-shadow:
+		0 4px 12px rgba($c-secondary, 0.15),
+		inset 0 1px 0 rgba(white, 0.8);
+	animation: errorShake 0.6s ease-out;
+
+	&::before {
+		content: "⚠";
+		color: $c-secondary;
+		box-shadow: 0 2px 4px rgba($c-secondary, 0.2);
+	}
+}
+
+/* ----------------------------------
+   Animations
+---------------------------------- */
+@keyframes successPulse {
+	0% {
+		transform: scale(0.95);
+		opacity: 0;
+	}
+	50% {
+		transform: scale(1.02);
+	}
+	100% {
+		transform: scale(1);
+		opacity: 1;
+	}
+}
+
+@keyframes errorShake {
+	0%,
+	100% {
+		transform: translateX(0);
+	}
+	25% {
+		transform: translateX(-4px);
+	}
+	75% {
+		transform: translateX(4px);
+	}
+}
+
+/* ----------------------------------
+   Responsive Design
+---------------------------------- */
+@media (max-width: $tablet) {
+	.wpcf7 {
+		input:not([type="submit"]):not([type="checkbox"]):not([type="radio"]),
+		textarea,
+		select {
+			font-size: 16px !important; // Prevent zoom on iOS
+		}
+	}
+
+	.form-group--radio,
+	.form-group--checkbox {
+		.wpcf7-radio,
+		.wpcf7-checkbox {
+			grid-template-columns: 1fr;
+			gap: 8px;
+		}
+	}
+}
+
+/* ----------------------------------
+   Accessibility Improvements
+---------------------------------- */
+@media (prefers-reduced-motion: reduce) {
+	.wpcf7 * {
+		transition: none !important;
+		transform: none !important;
+	}
+}
+
+// High contrast mode support
+@media (prefers-contrast: high) {
+	:root {
+		--cf7-border: #000;
+		--cf7-border-focus: #000;
+		--cf7-text: #000;
+	}
+}
+
+// Focus-visible for better keyboard navigation
+.wpcf7 input:focus-visible,
+.wpcf7 textarea:focus-visible,
+.wpcf7 select:focus-visible,
+.wpcf7 button:focus-visible {
+	outline: 2px solid var(--cf7-primary);
+	outline-offset: 2px;
+}
+
+/* ----------------------------------
+   Hide Default CF7 Spinner
+---------------------------------- */
+.wpcf7-spinner {
+	display: none !important;
 }

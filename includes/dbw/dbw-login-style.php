@@ -60,7 +60,7 @@ function custom_dark_mode_login_page() {
             --input-bg: #ffffff;
             --border-color: #d2d2d7;
             --text-muted: #86868b;
-            --glass-bg: rgba(255, 255, 255, 0.8);
+            --glass-bg: rgba(255, 255, 255, 0.85);
         }
         
         /* Animierter Hintergrund */
@@ -75,18 +75,19 @@ function custom_dark_mode_login_page() {
             50% { transform: translateY(-20px); }
         }
         
-        /* Grundlegende Body-Styles */
+        /* Einheitliches Layout für alle Bildschirmgrößen */
         body {
             background: linear-gradient(-45deg, #000000, #1d1d1f, #2c2c2e, #1d1d1f) !important;
             background-size: 400% 400% !important;
             animation: gradient-shift 15s ease infinite !important;
             color: var(--font-color) !important;
             font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif !important;
-            min-height: 100vh !important;
+            min-height: 70vh !important;
             -webkit-font-smoothing: antialiased !important;
             -moz-osx-font-smoothing: grayscale !important;
             position: relative !important;
-            overflow: hidden !important;
+            overflow-x: hidden !important;
+            padding: 20px !important;
         }
         
         body.light-mode {
@@ -107,6 +108,7 @@ function custom_dark_mode_login_page() {
             filter: blur(100px) !important;
             opacity: 0.3 !important;
             animation: float 8s ease-in-out infinite !important;
+            z-index: 1 !important;
         }
         
         body::after {
@@ -120,31 +122,52 @@ function custom_dark_mode_login_page() {
             filter: blur(120px) !important;
             opacity: 0.2 !important;
             animation: float 10s ease-in-out infinite !important;
+            z-index: 1 !important;
         }
         
-        /* Login-Container */
         #login {
-            padding: 8% 0 0 !important;
             margin: auto !important;
-            max-width: 400px !important;
+            max-width: 450px !important;
+            width: 100% !important;
             position: relative !important;
             z-index: 10 !important;
+            padding: 0 !important;
         }
         
-        /* Logo Animation */
+        /* Desktop spezifische Anpassungen */
+        @media (min-width: 1024px) {
+            body {
+                padding: 40px !important;
+            }
+            
+            #login {
+                max-width: 500px !important;
+            }
+        }
+        
+        /* Mobile spezifische Anpassungen */
+        @media (max-width: 768px) {
+            body {
+                padding: 15px !important;
+                align-items: center !important;
+            }
+            
+            #login {
+                max-width: 400px !important;
+            }
+        }
+        
         h1 {
             animation: fadeInDown 0.8s ease-out !important;
+            text-align: center !important;
+            margin-bottom: 30px !important;
         }
-        
-        @keyframes fadeInDown {
-            from {
-                opacity: 0;
-                transform: translateY(-30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+
+        #login{
+            display: flex;
+            flex-direction: column;
+            min-height: 70vh;
+            justify-content: center;
         }
         
         #loginform, #lostpasswordform, #registerform {
@@ -154,7 +177,7 @@ function custom_dark_mode_login_page() {
             box-shadow: 
                 0 32px 64px -12px rgba(0, 0, 0, 0.4),
                 inset 0 1px 0 rgba(255, 255, 255, 0.1) !important;
-            padding: 40px !important;
+            padding: 35px !important;
             margin-top: 20px !important;
             backdrop-filter: blur(20px) saturate(180%) !important;
             -webkit-backdrop-filter: blur(20px) saturate(180%) !important;
@@ -163,18 +186,12 @@ function custom_dark_mode_login_page() {
             overflow: hidden !important;
         }
         
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
+        @media (min-width: 1024px) {
+            #loginform, #lostpasswordform, #registerform {
+                padding: 40px !important;
             }
         }
         
-        /* Premium Glassmorphism Effekt */
         #loginform::before,
         #lostpasswordform::before,
         #registerform::before {
@@ -200,7 +217,29 @@ function custom_dark_mode_login_page() {
             border: 1px solid rgba(0, 0, 0, 0.04) !important;
         }
         
-        /* Eingabefelder mit Premium-Feel */
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        /* Verbesserte Eingabefelder - breiter und weniger eingequetscht */
         input[type="text"], 
         input[type="password"], 
         input[type="email"] {
@@ -209,18 +248,28 @@ function custom_dark_mode_login_page() {
             border-radius: 12px !important;
             color: var(--font-color) !important;
             font-size: 16px !important;
-            padding: 14px 18px !important;
+            padding: 16px 20px !important;
             width: 100% !important;
+            min-width: 300px !important;
             box-sizing: border-box !important;
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
             background-clip: padding-box !important;
             position: relative !important;
         }
         
+        @media (max-width: 480px) {
+            input[type="text"], 
+            input[type="password"], 
+            input[type="email"] {
+                min-width: 100% !important;
+            }
+        }
+        
         input[type="text"]:hover,
         input[type="password"]:hover,
         input[type="email"]:hover {
             background-color: rgba(99, 102, 241, 0.05) !important;
+            border-color: rgba(99, 102, 241, 0.2) !important;
         }
         
         input[type="text"]:focus,
@@ -228,7 +277,7 @@ function custom_dark_mode_login_page() {
         input[type="email"]:focus {
             border-color: var(--primary-color) !important;
             box-shadow: 
-                0 0 0 4px rgba(99, 102, 241, 0.1),
+                0 0 0 3px rgba(99, 102, 241, 0.1),
                 0 4px 12px rgba(99, 102, 241, 0.15) !important;
             outline: none !important;
             transform: translateY(-1px) !important;
@@ -240,23 +289,25 @@ function custom_dark_mode_login_page() {
             font-weight: 500 !important;
             margin-bottom: 8px !important;
             display: block !important;
+            font-size: 14px !important;
         }
         
-        /* Premium Button mit Gradient */
+        /* Dezenterer Button - weniger aufdringlich */
         .button-primary {
-            background: linear-gradient(135deg, var(--gradient-start), var(--gradient-end)) !important;
+            background: var(--primary-color) !important;
             border: none !important;
-            border-radius: 12px !important;
+            border-radius: 10px !important;
             color: white !important;
-            font-size: 14px !important;
-            font-weight: 600 !important;
-            padding: 14px 28px !important;
+            font-size: 15px !important;
+            font-weight: 500 !important;
+            padding: 12px 24px !important;
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
             cursor: pointer !important;
             width: 100% !important;
             position: relative !important;
             overflow: hidden !important;
-            letter-spacing: 0.5px !important;
+            letter-spacing: 0.3px !important;
+            opacity: 0.95 !important;
         }
         
         .button-primary::before {
@@ -266,7 +317,7 @@ function custom_dark_mode_login_page() {
             left: -100% !important;
             width: 100% !important;
             height: 100% !important;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent) !important;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent) !important;
             transition: left 0.6s ease !important;
         }
         
@@ -275,10 +326,9 @@ function custom_dark_mode_login_page() {
         }
         
         .button-primary:hover {
-            transform: translateY(-2px) !important;
-            box-shadow: 
-                0 10px 30px rgba(99, 102, 241, 0.4),
-                0 0 40px rgba(99, 102, 241, 0.2) !important;
+            transform: translateY(-1px) !important;
+            box-shadow: 0 6px 20px rgba(99, 102, 241, 0.3) !important;
+            opacity: 1 !important;
         }
         
         .button-primary:active {
@@ -289,8 +339,8 @@ function custom_dark_mode_login_page() {
         .button-primary.loading::after {
             content: "" !important;
             position: absolute !important;
-            width: 20px !important;
-            height: 20px !important;
+            width: 18px !important;
+            height: 18px !important;
             margin: auto !important;
             border: 2px solid transparent !important;
             border-radius: 50% !important;
@@ -302,16 +352,17 @@ function custom_dark_mode_login_page() {
             to { transform: rotate(360deg); }
         }
         
-        /* Premium Nachrichten-Styling */
+        /* Verbesserte Nachrichten-Styling */
         .message, #login_error, .login .message {
             display: flex;
-            border-radius: 12px !important;
-            padding: 16px 20px !important;
+            border-radius: 10px !important;
+            padding: 14px 18px !important;
             margin: 16px 0 !important;
             border: none !important;
             position: relative !important;
             overflow: hidden !important;
             animation: slideInLeft 0.5s ease-out !important;
+            font-size: 14px !important;
         }
         
         @keyframes slideInLeft {
@@ -355,7 +406,7 @@ function custom_dark_mode_login_page() {
         
         #nav a, #backtoblog a {
             color: var(--text-muted) !important;
-            font-size: 14px !important;
+            font-size: 13px !important;
             transition: color 0.3s ease !important;
             text-decoration: none !important;
         }
@@ -364,65 +415,54 @@ function custom_dark_mode_login_page() {
             color: var(--primary-color) !important;
         }
         
-        /* Language Switcher Styling - Konsistente Höhe */
+        /* Language Switcher in Ecke verschieben */
         .language-switcher {
+            position: fixed !important;
+            bottom: 20px !important;
+            left: 20px !important;
+            z-index: 1000 !important;
             display: flex !important;
-            justify-content: center !important;
-            margin-top: 20px !important;
-            gap: 10px !important;
             align-items: center !important;
+            gap: 8px !important;
+            padding: 8px 12px !important;
+            background: var(--glass-bg) !important;
+            border-radius: 8px !important;
+            border: 1px solid var(--border-color) !important;
+            backdrop-filter: blur(10px) !important;
+            -webkit-backdrop-filter: blur(10px) !important;
         }
         
         .language-switcher label {
             color: var(--text-muted) !important;
-            font-size: 14px !important;
+            font-size: 12px !important;
+            margin: 0 !important;
         }
         
         .language-switcher select {
-            background-color: var(--input-bg) !important;
-            border: 1px solid var(--border-color) !important;
-            border-radius: 8px !important;
+            background-color: transparent !important;
+            border: none !important;
             color: var(--font-color) !important;
-            padding: 8px 12px !important;
-            font-size: 14px !important;
-            min-height: 36px !important;
+            font-size: 12px !important;
+            padding: 4px 8px !important;
+            min-height: auto !important;
             cursor: pointer !important;
-            transition: all 0.3s ease !important;
-        }
-        
-        .language-switcher select:hover {
-            border-color: var(--primary-color) !important;
-        }
-        
-        .language-switcher select:focus {
-            outline: none !important;
-            border-color: var(--primary-color) !important;
-            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1) !important;
         }
         
         .language-switcher input[type="submit"] {
             background: var(--primary-color) !important;
             border: none !important;
-            border-radius: 8px !important;
+            border-radius: 4px !important;
             color: white !important;
-            padding: 8px 16px !important;
-            font-size: 14px !important;
-            font-weight: 500 !important;
-            min-height: 36px !important;
+            padding: 4px 8px !important;
+            font-size: 12px !important;
+            min-height: auto !important;
             cursor: pointer !important;
-            transition: all 0.3s ease !important;
-        }
-        
-        .language-switcher input[type="submit"]:hover {
-            background: var(--primary-hover) !important;
-            transform: translateY(-1px) !important;
-            box-shadow: 0 4px 12px rgba(99, 102, 241, 0.2) !important;
         }
         
         /* Checkbox Styling */
         input[type="checkbox"] {
             accent-color: var(--primary-color) !important;
-            transform: scale(1.2) !important;
+            transform: scale(1.1) !important;
         }
         
         .forgetmenot {
@@ -430,15 +470,16 @@ function custom_dark_mode_login_page() {
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 10px;
+            gap: 8px;
         }
         
         .forgetmenot label {
             display: flex !important;
             align-items: center !important;
-            gap: 8px !important;
-            font-size: 14px !important;
+            gap: 6px !important;
+            font-size: 13px !important;
             color: var(--text-muted) !important;
+            margin: 0 !important;
         }
         
         /* iOS 26 Style Theme Switch */
@@ -449,14 +490,14 @@ function custom_dark_mode_login_page() {
             z-index: 1000 !important;
             display: flex !important;
             align-items: center !important;
-            gap: 10px !important;
+            gap: 8px !important;
             animation: fadeIn 0.5s ease-out !important;
         }
         
         .theme-switch {
             position: relative !important;
-            width: 51px !important;
-            height: 31px !important;
+            width: 48px !important;
+            height: 28px !important;
         }
         
         .theme-switch input {
@@ -474,20 +515,20 @@ function custom_dark_mode_login_page() {
             bottom: 0 !important;
             background-color: rgba(120, 120, 128, 0.16) !important;
             transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1) !important;
-            border-radius: 31px !important;
+            border-radius: 28px !important;
         }
         
         .slider:before {
             position: absolute !important;
             content: "" !important;
-            height: 27px !important;
-            width: 27px !important;
+            height: 24px !important;
+            width: 24px !important;
             left: 2px !important;
             bottom: 2px !important;
             background-color: white !important;
             transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1) !important;
             border-radius: 50% !important;
-            box-shadow: 0 3px 8px rgba(0, 0, 0, 0.15), 0 3px 1px rgba(0, 0, 0, 0.06) !important;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15) !important;
         }
         
         input:checked + .slider {
@@ -496,20 +537,19 @@ function custom_dark_mode_login_page() {
         
         input:checked + .slider:before {
             transform: translateX(20px) !important;
-            box-shadow: 0 3px 8px rgba(0, 0, 0, 0.15), 0 3px 1px rgba(0, 0, 0, 0.06) !important;
         }
         
         .mode-icon {
-            font-size: 20px !important;
+            font-size: 18px !important;
             transition: opacity 0.3s ease !important;
         }
         
         body.dark-mode .mode-icon.sun {
-            opacity: 0.3 !important;
+            opacity: 0.4 !important;
         }
         
         body.light-mode .mode-icon.moon {
-            opacity: 0.3 !important;
+            opacity: 0.4 !important;
         }
         
         @keyframes fadeIn {
@@ -525,7 +565,7 @@ function custom_dark_mode_login_page() {
             box-shadow: 
                 0 32px 64px -12px rgba(0, 0, 0, 0.4),
                 inset 0 1px 0 rgba(255, 255, 255, 0.1) !important;
-            padding: 40px !important;
+            padding: 35px !important;
             margin-top: 20px !important;
             backdrop-filter: blur(20px) saturate(180%) !important;
             -webkit-backdrop-filter: blur(20px) saturate(180%) !important;
@@ -561,10 +601,10 @@ function custom_dark_mode_login_page() {
             background: transparent !important;
             border: 2px solid var(--border-color) !important;
             color: var(--font-color) !important;
-            border-radius: 12px !important;
-            padding: 14px 28px !important;
-            font-size: 16px !important;
-            font-weight: 600 !important;
+            border-radius: 10px !important;
+            padding: 12px 24px !important;
+            font-size: 15px !important;
+            font-weight: 500 !important;
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
             cursor: pointer !important;
         }
@@ -573,8 +613,8 @@ function custom_dark_mode_login_page() {
             border-color: var(--primary-color) !important;
             background: var(--primary-color) !important;
             color: white !important;
-            transform: translateY(-2px) !important;
-            box-shadow: 0 10px 30px rgba(99, 102, 241, 0.4) !important;
+            transform: translateY(-1px) !important;
+            box-shadow: 0 6px 20px rgba(99, 102, 241, 0.3) !important;
         }
         
         #pass-strength-result {
@@ -582,7 +622,7 @@ function custom_dark_mode_login_page() {
             padding: 8px !important;
             border-radius: 6px !important;
             text-align: center !important;
-            font-size: 14px !important;
+            font-size: 13px !important;
         }
         
         #pass-strength-result.strong {
@@ -610,7 +650,7 @@ function custom_dark_mode_login_page() {
         }
         
         .indicator-hint {
-            font-size: 13px !important;
+            font-size: 12px !important;
             line-height: 1.5 !important;
             color: var(--text-muted) !important;
             margin-top: 12px !important;
@@ -637,12 +677,13 @@ function custom_dark_mode_login_page() {
         /* Notice Messages auf Reset-Seite */
         .notice.reset-pass {
             background: linear-gradient(135deg, rgba(99, 102, 241, 0.1), rgba(99, 102, 241, 0.05)) !important;
-            border-radius: 12px !important;
-            padding: 16px 20px !important;
+            border-radius: 10px !important;
+            padding: 14px 18px !important;
             margin: 16px 0 !important;
             border: none !important;
             color: var(--font-color) !important;
             box-shadow: 0 4px 12px rgba(99, 102, 241, 0.1) !important;
+            font-size: 14px !important;
         }
         
         .notice.reset-pass::before {
@@ -656,29 +697,34 @@ function custom_dark_mode_login_page() {
             border: 2px solid var(--border-color) !important;
             color: var(--font-color) !important;
             transition: all 0.3s ease !important;
+            border-radius: 10px !important;
+            padding: 12px 24px !important;
+            font-size: 15px !important;
+            font-weight: 500 !important;
         }
         
         #resetpassform .button-secondary:hover {
             border-color: var(--primary-color) !important;
             color: var(--primary-color) !important;
         }
+        
         .login-footer {
             text-align: center !important;
-            margin-top: 60px !important;
+            margin-top: 40px !important;
             padding: 20px !important;
             animation: fadeIn 1s ease-out 0.5s both !important;
         }
         
         .login-footer p {
             color: var(--text-muted) !important;
-            font-size: 13px !important;
+            font-size: 12px !important;
             margin: 0 !important;
-            letter-spacing: 0.5px !important;
+            letter-spacing: 0.3px !important;
         }
         
         .login-footer a {
             color: var(--primary-color) !important;
-            font-weight: 600 !important;
+            font-weight: 500 !important;
             text-decoration: none !important;
             position: relative !important;
         }
@@ -689,7 +735,7 @@ function custom_dark_mode_login_page() {
             bottom: -2px !important;
             left: 0 !important;
             width: 0 !important;
-            height: 2px !important;
+            height: 1px !important;
             background: var(--primary-color) !important;
             transition: width 0.3s ease !important;
         }
@@ -698,22 +744,65 @@ function custom_dark_mode_login_page() {
             width: 100% !important;
         }
         
-        /* Premium Badge - Entfernt wie gewünscht */
-        
-        /* Responsive Design */
-        @media (max-width: 480px) {
-            #login {
-                padding: 5% 20px 0 !important;
+        /* Desktop Spezifische Anpassungen - entfernt */
+        @media (min-width: 1024px) {
+            .login-footer {
+                margin-top: 40px !important;
             }
             
-            #loginform, #lostpasswordform, #registerform {
-                padding: 30px 20px !important;
+            .language-switcher {
+                bottom: 20px !important;
+                left: 20px !important;
             }
             
             .theme-switch-wrapper {
-                top: 10px !important;
-                right: 10px !important;
-                padding: 10px 16px !important;
+                top: 20px !important;
+                right: 20px !important;
+            }
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            #login {
+                padding: 5% 15px 0 !important;
+            }
+            
+            #loginform, #lostpasswordform, #registerform {
+                padding: 25px 20px !important;
+            }
+            
+            .theme-switch-wrapper {
+                top: 15px !important;
+                right: 15px !important;
+                transform: scale(0.9) !important;
+            }
+            
+            body .language-switcher {
+            display: none !important
+
+            }
+            
+            input[type="text"], 
+            input[type="password"], 
+            input[type="email"] {
+                padding: 14px 16px !important;
+                font-size: 16px !important;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            #login {
+                padding: 3% 10px 0 !important;
+            }
+            
+            #loginform, #lostpasswordform, #registerform {
+                padding: 20px 15px !important;
+                border-radius: 16px !important;
+            }
+            
+            h1 a {
+                width: 160px !important;
+                height: 64px !important;
             }
         }
         
@@ -723,6 +812,10 @@ function custom_dark_mode_login_page() {
                 animation-duration: 0.01ms !important;
                 animation-iteration-count: 1 !important;
                 transition-duration: 0.01ms !important;
+            }
+            
+            body::before, body::after {
+                animation: none !important;
             }
         }
         
@@ -734,7 +827,7 @@ function custom_dark_mode_login_page() {
         
         /* Custom Scrollbar */
         ::-webkit-scrollbar {
-            width: 10px !important;
+            width: 8px !important;
         }
         
         ::-webkit-scrollbar-track {
@@ -743,7 +836,7 @@ function custom_dark_mode_login_page() {
         
         ::-webkit-scrollbar-thumb {
             background: var(--primary-color) !important;
-            border-radius: 5px !important;
+            border-radius: 4px !important;
         }
         
         ::-webkit-scrollbar-thumb:hover {
@@ -771,20 +864,23 @@ function custom_dark_mode_login_page() {
         /* Placeholder styling */
         ::placeholder {
             color: var(--text-muted) !important;
-            opacity: 1 !important;
+            opacity: 0.7 !important;
         }
         
         /* Password toggle button fix */
         .login .button.wp-hide-pw {
-            min-height: 49px;
+            min-height: 48px;
             display: flex;
             align-items: center;
             justify-content: center;
+            border-radius: 10px !important;
         }
         
         .login .button.wp-hide-pw .dashicons {
             top: auto;
         }
+        
+        /* Desktop Branding Styles entfernt */
     </style>';
 }
 add_action('login_head', 'custom_dark_mode_login_page');
@@ -801,7 +897,7 @@ function add_dark_light_mode_switcher() {
           </div>';
     
     echo '<div class="login-footer">
-            <p>Crafted with ❤️ by <a href="https://dbw-media.de" target="_blank">dbw media</a></p>
+            <p>Gemacht mit ❤️ und viel ☕️ von <a href="https://dbw-media.de" target="_blank">dbw media</a></p>
           </div>';
     
     echo '<script>
@@ -873,7 +969,7 @@ function add_dark_light_mode_switcher() {
                     
                     // Premium focus effects
                     input.addEventListener("focus", function() {
-                        this.parentElement.style.transform = "scale(1.02)";
+                        this.parentElement.style.transform = "scale(1.01)";
                     });
                     
                     input.addEventListener("blur", function() {
@@ -881,17 +977,20 @@ function add_dark_light_mode_switcher() {
                     });
                 });
                 
-                // Password strength indicator
-                const passwordInput = document.getElementById("user_pass");
-                if (passwordInput) {
-                    const strengthIndicator = document.createElement("div");
-                    strengthIndicator.className = "password-strength";
-                    passwordInput.parentElement.appendChild(strengthIndicator);
-                    
-                    passwordInput.addEventListener("input", function() {
-                        const strength = checkPasswordStrength(this.value);
-                        updateStrengthIndicator(strengthIndicator, strength);
-                    });
+                // Password strength indicator nur für Reset-Seiten
+                const currentAction = new URLSearchParams(window.location.search).get("action");
+                if (currentAction === "rp" || currentAction === "resetpass") {
+                    const passwordInput = document.getElementById("pass1");
+                    if (passwordInput) {
+                        const strengthIndicator = document.createElement("div");
+                        strengthIndicator.className = "password-strength";
+                        passwordInput.parentElement.appendChild(strengthIndicator);
+                        
+                        passwordInput.addEventListener("input", function() {
+                            const strength = checkPasswordStrength(this.value);
+                            updateStrengthIndicator(strengthIndicator, strength);
+                        });
+                    }
                 }
                 
                 function checkPasswordStrength(password) {
@@ -912,19 +1011,6 @@ function add_dark_light_mode_switcher() {
                     indicator.style.color = colors[strength];
                     indicator.style.fontSize = "12px";
                     indicator.style.marginTop = "4px";
-                }
-                
-                // Verstecke Password Strength auf Login-Seite
-                const currentAction = new URLSearchParams(window.location.search).get("action");
-                if (!currentAction || currentAction === "login") {
-                    // Entferne Strength Indicator vom Login-Formular
-                    const loginForm = document.getElementById("loginform");
-                    if (loginForm) {
-                        const existingIndicator = loginForm.querySelector(".password-strength");
-                        if (existingIndicator) {
-                            existingIndicator.remove();
-                        }
-                    }
                 }
                 
                 // Smooth page transitions
@@ -1083,7 +1169,7 @@ function add_device_detection() {
     /* Mobile-spezifische Anpassungen */
     .is-mobile #login {
         width: 100% !important;
-        padding: 5% 20px !important;
+        padding: 5% 15px !important;
     }
     
     .is-mobile .theme-switch-wrapper {
@@ -1099,12 +1185,12 @@ function add_device_detection() {
     /* Touch-optimierte Buttons */
     .touch-device .button-primary {
         min-height: 48px !important;
-        font-size: 17px !important;
+        font-size: 16px !important;
     }
     
     .touch-device input[type="checkbox"] {
-        width: 20px !important;
-        height: 20px !important;
+        width: 18px !important;
+        height: 18px !important;
     }
     </style>
     <?php
@@ -1334,3 +1420,4 @@ function add_privacy_compliant_analytics() {
 add_action('login_footer', 'add_privacy_compliant_analytics');
 
 // Ende der Funktionen
+?>
