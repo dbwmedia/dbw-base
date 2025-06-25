@@ -1,0 +1,332 @@
+@use "../global" as *;
+//--------------------------------------------------------------
+// # DBW Text-Medien Component - Clean Version
+//--------------------------------------------------------------
+// Base Component
+.dbw-text-medien {
+	// Grid Layout (GenerateBlocks Grid)
+	.grid {
+		gap: $gap-xl; // 60px gap
+		align-items: center;
+		// Responsive: Stack on tablet and below
+		@media (max-width: $tablet) {
+			grid-template-columns: 1fr;
+			gap: $gap; // 40px gap
+			text-align: center;
+		}
+		// Image first on mobile (reverse order)
+		@media (max-width: $mobile) {
+			> div:last-child {
+				order: -1;
+			}
+		}
+	}
+	// Typography Styles
+	.text {
+		display: flex;
+		flex-direction: column;
+		gap: $s-xs; // 18.75px
+		.gb-text {
+			&:is(h1, h2, h3, h4, h5, h6) {
+				margin-bottom: 0;
+			}
+			&:is(p) {
+				margin-bottom: 0;
+			}
+		}
+	}
+	// Image Styles
+	.medien [class*="gb-media"] {
+		width: 100%;
+		height: auto;
+		border-radius: $radius-standard; // 16px
+		box-shadow: $b-shadow;
+		transition: $t-transition;
+		&:hover {
+			transform: scale(1.02);
+			box-shadow: $b-shadow-hover;
+		}
+		@media (max-width: $mobile) {
+			border-radius: $radius-subtle; // 8px
+		}
+	}
+}
+//--------------------------------------------------------------
+// # Mixins für DRY Code
+//--------------------------------------------------------------
+// Fullwidth Background Mixin
+@mixin fullwidth-background($bg-color, $gradient: null) {
+	position: relative;
+	&::before {
+		content: "";
+		position: absolute;
+		top: 0;
+		left: 50%;
+		transform: translateX(-50%);
+		width: 100vw;
+		height: 100%;
+		background: if($gradient, $gradient, $bg-color);
+		z-index: 0;
+	}
+	.dbw-text-medien-inner {
+		position: relative;
+		z-index: 1;
+	}
+}
+// Boxed Background Mixin - KORRIGIERT für Content-Breite
+@mixin boxed-background($bg-color, $gradient: null, $shadow: $b-shadow) {
+	// Container bleibt normal (max-width)
+	.dbw-text-medien-inner {
+		position: relative;
+
+		// Grid bekommt den Hintergrund
+		.grid {
+			position: relative;
+			padding: $s-sm; // 50px
+			border-radius: $radius-enhanced; // 24px
+
+			@media (max-width: $tablet) {
+				padding: $s-xs; // 25px
+			}
+
+			@media (max-width: $mobile) {
+				padding: $gap-s; // 20px
+			}
+
+			// Box-Background nur um das Grid (Content)
+			&::before {
+				content: "";
+				position: absolute;
+				top: 0;
+				left: 0;
+				right: 0;
+				bottom: 0;
+				background: if($gradient, $gradient, $bg-color);
+				border-radius: $radius-enhanced; // 24px
+				box-shadow: $shadow;
+				z-index: 0;
+			}
+
+			// Content über Background
+			> * {
+				position: relative;
+				z-index: 1;
+			}
+		}
+	}
+}
+// Text Color Mixin
+@mixin text-colors($heading-color: null, $text-color: null, $gradient: null) {
+	.dbw-text-medien-inner {
+		.text {
+			.gb-text {
+				@if $gradient {
+					&:is(h1, h2, h3, h4, h5, h6) {
+						background: $gradient;
+						-webkit-background-clip: text;
+						-webkit-text-fill-color: transparent;
+						background-clip: text;
+					}
+				} @else {
+					&:is(h1, h2, h3, h4, h5, h6) {
+						color: $heading-color;
+					}
+				}
+				@if $text-color {
+					&:is(p) {
+						color: $text-color;
+					}
+				}
+			}
+		}
+	}
+}
+// Image Shadow Mixin
+@mixin image-shadow($shadow) {
+	.dbw-text-medien-inner {
+		.medien [class*="gb-media"] {
+			box-shadow: $shadow;
+		}
+	}
+}
+//--------------------------------------------------------------
+// # Fullwidth Background Versions
+//--------------------------------------------------------------
+.dbw-text-medien--dark {
+	@include fullwidth-background(
+		var(--color-black),
+		linear-gradient(135deg, var(--color-black) 0%, darken($c-black, 3%) 100%)
+	);
+	@include text-colors(var(--color-white), var(--color-gray-light));
+	@include image-shadow(0 8px 32px rgba($c-black, 0.3));
+}
+.dbw-text-medien--accent {
+	@include fullwidth-background(
+		rgba($c-primary, 0.04),
+		linear-gradient(
+			135deg,
+			rgba($c-primary, 0.04) 0%,
+			rgba($c-accent, 0.06) 50%,
+			rgba($c-primaryLight, 0.04) 100%
+		)
+	);
+	@include text-colors(
+		null,
+		null,
+		linear-gradient(135deg, $c-primary 0%, $c-accent 50%, $c-primaryLight 100%)
+	);
+}
+.dbw-text-medien--success {
+	@include fullwidth-background(
+		rgba($c-success, 0.05),
+		linear-gradient(
+			135deg,
+			rgba($c-success, 0.05) 0%,
+			rgba($c-success, 0.08) 50%,
+			rgba($c-success, 0.03) 100%
+		)
+	);
+	@include text-colors(darken($c-success, 10%));
+}
+//--------------------------------------------------------------
+// # Boxed Background Versions - KORRIGIERT
+//--------------------------------------------------------------
+.dbw-text-medien--boxed {
+	@include boxed-background(var(--color-white));
+}
+.dbw-text-medien--boxed-dark {
+	@include boxed-background(
+		var(--color-black),
+		linear-gradient(135deg, var(--color-black) 0%, darken($c-black, 3%) 100%),
+		0 8px 32px rgba($c-black, 0.15)
+	);
+	@include text-colors(var(--color-white), var(--color-gray-light));
+	@include image-shadow(0 8px 32px rgba($c-black, 0.3));
+}
+.dbw-text-medien--boxed-accent {
+	@include boxed-background(
+		rgba($c-primary, 0.08),
+		linear-gradient(
+			135deg,
+			rgba($c-primary, 0.08) 0%,
+			rgba($c-accent, 0.12) 50%,
+			rgba($c-primaryLight, 0.08) 100%
+		),
+		$b-shadow-hover
+	);
+	@include text-colors(
+		null,
+		null,
+		linear-gradient(135deg, $c-primary 0%, $c-accent 50%, $c-primaryLight 100%)
+	);
+}
+.dbw-text-medien--boxed-success {
+	@include boxed-background(
+		rgba($c-success, 0.08),
+		linear-gradient(
+			135deg,
+			rgba($c-success, 0.08) 0%,
+			rgba($c-success, 0.12) 50%,
+			rgba($c-success, 0.06) 100%
+		)
+	);
+	@include text-colors(darken($c-success, 10%));
+}
+.dbw-text-medien--boxed-glass {
+	@include boxed-background($b-glass-bg, null, 0 8px 32px rgba($c-black, 0.1));
+	.dbw-text-medien-inner .grid::before {
+		backdrop-filter: blur(20px);
+		border: 1px solid $b-glass-border;
+	}
+}
+.dbw-text-medien--boxed-glass-dark {
+	@include boxed-background(
+		rgba($c-black, 0.8),
+		null,
+		0 8px 32px rgba($c-black, 0.25)
+	);
+	@include text-colors(var(--color-white), var(--color-gray-light));
+	.dbw-text-medien-inner .grid::before {
+		backdrop-filter: blur(20px);
+		border: 1px solid rgba(255, 255, 255, 0.1);
+	}
+}
+//--------------------------------------------------------------
+// # Layout & Style Modifier (bleiben wie sie sind)
+//--------------------------------------------------------------
+.dbw-text-medien--large {
+	.dbw-text-medien-inner {
+		.grid {
+			gap: calc($gap-xl * 1.5); // 90px gap
+			@media (max-width: $tablet) {
+				gap: calc($gap * 1.5); // 60px gap
+			}
+		}
+		.text {
+			gap: $s-sm; // 50px
+		}
+	}
+}
+.dbw-text-medien--compact {
+	.dbw-text-medien-inner {
+		.grid {
+			gap: $gap; // 40px gap
+			@media (max-width: $tablet) {
+				gap: $gap-s; // 20px gap
+			}
+		}
+		.text {
+			gap: calc($s-xs / 2); // ~9px
+		}
+	}
+}
+.dbw-text-medien--rounded {
+	.dbw-text-medien-inner {
+		.medien [class*="gb-media"] {
+			border-radius: $radius-prominent; // 32px
+			@media (max-width: $mobile) {
+				border-radius: $radius-enhanced; // 24px
+			}
+		}
+	}
+}
+.dbw-text-medien--flat {
+	.dbw-text-medien-inner {
+		.medien [class*="gb-media"] {
+			box-shadow: none;
+			&:hover {
+				box-shadow: $b-shadow;
+				transform: scale(1.01);
+			}
+		}
+	}
+}
+//--------------------------------------------------------------
+// # Einfach neue Farben hinzufügen
+//--------------------------------------------------------------
+// Neue Vollbreiten-Version hinzufügen:
+.dbw-text-medien--warning {
+	@include fullwidth-background(
+		rgba($c-warning, 0.05),
+		linear-gradient(
+			135deg,
+			rgba($c-warning, 0.05) 0%,
+			rgba($c-warning, 0.08) 50%,
+			rgba($c-warning, 0.03) 100%
+		)
+	);
+	@include text-colors(darken($c-warning, 15%));
+}
+// Neue Boxed-Version hinzufügen:
+.dbw-text-medien--boxed-warning {
+	@include boxed-background(
+		rgba($c-warning, 0.08),
+		linear-gradient(
+			135deg,
+			rgba($c-warning, 0.08) 0%,
+			rgba($c-warning, 0.12) 50%,
+			rgba($c-warning, 0.06) 100%
+		)
+	);
+	@include text-colors(darken($c-warning, 15%));
+}

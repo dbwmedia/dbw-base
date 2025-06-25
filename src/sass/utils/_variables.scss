@@ -24,11 +24,13 @@ $accent: #8b5cf6;
 //--------------------------------------------------------------
 $f-font: "Inter", Helvetica, Arial, sans-serif;
 $f-weight: 500;
-$f-sizeBody: 18px;
+$f-sizeBody: 20px;
 
 // Typography Colors (separate control)
 $f-colorText: #363636; // Text color (independent)
 $f-colorHeading: #222222; // Headline color (independent)
+$f-colorHeadingLight: #e0e0e0; // Headline color (independent)
+$f-colorTextLight: #f0f0f0;
 
 //--------------------------------------------------------------
 // # Spacing System
@@ -53,18 +55,34 @@ $padding-small-default: 1.35em;
 $padding-xs-default: 1.25em;
 
 //--------------------------------------------------------------
-// # Border Radius System
+// # Smart Border Radius System
 //--------------------------------------------------------------
-$borderRadiusXS: 8px;
-$borderRadiusS: 16px;
-$borderRadiusSM: 24px;
-$borderRadiusM: 32px;
-$borderRadiusL: 64px;
 
-// Legacy support
-$border-radius-s: $borderRadiusXS;
-$border-radius-m: $borderRadiusS;
-$border-radius-xl: 100px;
+// 🎯 BASE VALUE - Only change this one!
+$borderRadiusBase: 0px;
+
+// 🤖 AUTO-CALCULATED VARIATIONS (semantic & mathematically perfect)
+$borderRadiusXS: calc($borderRadiusBase / 2); // 8px  - Subtle rounding
+$borderRadiusS: $borderRadiusBase; // 16px - Standard (BASE)
+$borderRadiusSM: calc($borderRadiusBase * 1.5); // 24px - Enhanced
+$borderRadiusM: calc($borderRadiusBase * 2); // 32px - Prominent
+$borderRadiusL: calc($borderRadiusBase * 4); // 64px - Bold
+$borderRadiusXL: calc($borderRadiusBase * 6.25); // 100px - Pill-like
+
+// 🏷️ SEMANTIC ALIASES (design intent-based)
+$radius-subtle: $borderRadiusXS; // 8px  - Cards, inputs
+$radius-standard: $borderRadiusS; // 16px - Buttons, containers
+$radius-enhanced: $borderRadiusSM; // 24px - Featured elements
+$radius-prominent: $borderRadiusM; // 32px - Hero sections
+$radius-bold: $borderRadiusL; // 64px - Large components
+$radius-pill: $borderRadiusXL; // 100px - Pill buttons, badges
+
+// 🔄 LEGACY SUPPORT (auto-mapped)
+$border-radius-s: $borderRadiusXS; // 8px
+$border-radius-m: $borderRadiusS; // 16px
+$border-radius-xl: $borderRadiusXL; // 100px
+
+//------------------------------------------------------------
 
 //--------------------------------------------------------------
 // # Smart Button System

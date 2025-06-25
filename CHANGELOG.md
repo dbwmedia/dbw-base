@@ -1,6 +1,14 @@
 # Changelog
 
-# Changelog
+## [1.3.2] - 25.06.2025
+
+### Hinzugefügt
+
+- **Smooth Scrolling mit Lenis**:
+  - `@studio-freight/lenis` als Abhängigkeit hinzugefügt (`npm install @studio-freight/lenis`)
+  - Neue JS-Komponente `Component_SmoothScroll` implementiert
+  - Integriertes Fallback: Bei fehlender `Lenis`-Funktion wird Standard-Scroll-Verhalten reaktiviert
+  - Animation über `requestAnimationFrame` für flüssiges Scrolling auf unterstützten Geräten
 
 ## [1.3.1] - 24.06.2025
 
