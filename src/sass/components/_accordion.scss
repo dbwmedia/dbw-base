@@ -1,5 +1,327 @@
 @use "../global" as *;
 
-.gb-accordion {
-	border-bottom: 1px solid $c-grayLight;
+#main .dbw-accordion {
+	// Wrapper spacing
+	padding: $s-md 0;
+
+	.gb-accordion {
+		display: flex;
+		flex-direction: column;
+		gap: $gap-s;
+	}
+
+	// Force reset all default accordion styles
+	.gb-accordion__item {
+		background: $c-white;
+		border: 1px solid rgba($c-gray, 0.2);
+		border-radius: $radius-standard;
+		overflow: hidden;
+		transition: $t-transition;
+		box-shadow: $b-shadow;
+		margin: 0;
+
+		&:hover {
+			border-color: rgba($c-primary, 0.3);
+			box-shadow: $b-shadow-hover;
+		}
+	}
+
+	.gb-accordion__toggle {
+		width: 100%;
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		padding: $gap $gap;
+		background: transparent;
+		border: none;
+		cursor: pointer;
+		transition: $t-transition;
+		margin: 0;
+		min-height: 60px;
+
+		&:hover {
+			background: rgba($c-primary, 0.02);
+		}
+
+		&:focus {
+			outline: none;
+			background: rgba($c-primary, 0.05);
+		}
+
+		// Active state
+		&[aria-expanded="true"] {
+			background: rgba($c-primary, 0.05);
+			border-bottom: 1px solid rgba($c-gray, 0.1);
+		}
+
+		// Typography for title
+		.gb-text {
+			font-size: $f-sizeH5;
+			font-weight: $f-weightSemibold;
+			color: $f-colorHeading;
+			letter-spacing: $f-letterSpacingNormal;
+			line-height: $f-lineHeightSnug;
+			text-align: left;
+			flex: 1;
+			margin: 0;
+			font-family: $f-font;
+		}
+	}
+
+	.gb-accordion__toggle-icon {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		width: 40px;
+		height: 40px;
+		border-radius: 50%;
+		background: rgba($c-primary, 0.1);
+		color: $c-primary;
+		transition: all 0.3s ease;
+		flex-shrink: 0;
+		margin: 0 0 0 $gap-s;
+
+		svg {
+			width: 18px;
+			height: 18px;
+			transition: transform 0.3s ease;
+			stroke: currentColor;
+		}
+
+		// Icon states - hide the close icon by default
+		.gb-accordion__toggle-icon-close {
+			display: none;
+		}
+
+		.gb-accordion__toggle-icon-open {
+			display: block;
+		}
+	}
+
+	// When accordion is open - rotate the icon and change background
+	.gb-accordion__toggle[aria-expanded="true"] .gb-accordion__toggle-icon {
+		background: $c-primary;
+		color: $c-white;
+
+		svg {
+			transform: rotate(180deg);
+		}
+	}
+
+	.gb-accordion__content {
+		padding: 0;
+		color: $f-colorText;
+		margin: 0;
+
+		// Reset any default content styling
+		> * {
+			margin: 0;
+		}
+
+		// Direct child wrapper (gb-element-*)
+		> div {
+			margin: 0;
+			padding: 0;
+		}
+	}
+
+	// Content padding only when accordion is open
+	.gb-accordion__toggle[aria-expanded="true"] + .gb-accordion__content {
+		padding: 0 $gap $gap;
+
+		// Content elements - only visible when open
+		.gb-accordion__toggle[aria-expanded="true"] + .gb-accordion__content {
+			p {
+				font-size: $f-sizeBody;
+				line-height: $f-lineHeightNormal;
+				margin: 0 0 $f-marginP 0;
+				color: $f-colorText;
+				font-family: $f-font;
+
+				&:last-child {
+					margin-bottom: 0;
+				}
+			}
+
+			// Lists
+			ul,
+			ol {
+				margin: $f-marginP 0;
+				padding-left: $gap;
+
+				li {
+					margin-bottom: calc($f-marginP / 2);
+					line-height: $f-lineHeightNormal;
+					color: $f-colorText;
+				}
+			}
+
+			// Links
+			a {
+				color: $c-primary;
+				text-decoration: none;
+				transition: $t-transition;
+
+				&:hover {
+					color: $c-primary-hover;
+					text-decoration: underline;
+				}
+			}
+		}
+	}
+
+	// Mobile optimizations
+	@media (max-width: $tablet) {
+		padding: $s-sm 0;
+
+		.gb-accordion {
+			gap: 15px;
+		}
+
+		.gb-accordion__toggle {
+			padding: $gap-s $gap-s;
+			min-height: 50px;
+
+			.gb-text {
+				font-size: $f-sizeH6;
+			}
+		}
+
+		.gb-accordion__toggle-icon {
+			width: 32px;
+			height: 32px;
+			margin-left: 15px;
+
+			svg {
+				width: 16px;
+				height: 16px;
+			}
+		}
+
+		.gb-accordion__toggle[aria-expanded="true"] + .gb-accordion__content {
+			padding: 0 $gap-s $gap-s;
+		}
+	}
+
+	// Dark theme variant
+	&.dbw-accordion--dark {
+		.gb-accordion__item {
+			background: $c-black;
+			border-color: rgba($c-white, 0.1);
+
+			&:hover {
+				border-color: rgba($c-primary, 0.4);
+			}
+
+			&:has(.gb-accordion__toggle[aria-expanded="true"]) {
+				border-color: $c-primary;
+			}
+		}
+
+		.gb-accordion__toggle {
+			&:hover {
+				background: rgba($c-white, 0.05);
+			}
+
+			.gb-text {
+				color: $f-colorHeadingLight;
+			}
+		}
+
+		.gb-accordion__toggle-icon {
+			background: rgba($c-white, 0.1);
+			color: $c-white;
+		}
+
+		.gb-accordion__toggle[aria-expanded="true"] .gb-accordion__toggle-icon {
+			background: $c-primary;
+			color: $c-white;
+		}
+
+		.gb-accordion__toggle[aria-expanded="true"] + .gb-accordion__content {
+			color: $f-colorTextLight;
+
+			p {
+				color: $f-colorTextLight;
+			}
+
+			li {
+				color: $f-colorTextLight;
+			}
+		}
+	}
+
+	// Compact variant
+	&.dbw-accordion--compact {
+		.gb-accordion__toggle {
+			padding: $gap-s $gap-s;
+			min-height: 45px;
+
+			.gb-text {
+				font-size: $f-sizeBody;
+			}
+		}
+
+		.gb-accordion__toggle-icon {
+			width: 28px;
+			height: 28px;
+
+			svg {
+				width: 14px;
+				height: 14px;
+			}
+		}
+
+		.gb-accordion__toggle[aria-expanded="true"] + .gb-accordion__content {
+			padding: 0 $gap-s $gap-s;
+
+			p {
+				font-size: $f-sizeSmall;
+			}
+		}
+	}
+
+	// Minimal variant (no borders/shadows)
+	&.dbw-accordion--minimal {
+		.gb-accordion__item {
+			background: transparent;
+			border: none;
+			border-bottom: 1px solid rgba($c-gray, 0.2);
+			border-radius: 0;
+			box-shadow: none;
+
+			&:last-child {
+				border-bottom: none;
+			}
+
+			&:hover {
+				background: rgba($c-grayLight, 0.5);
+				border-color: rgba($c-gray, 0.3);
+				box-shadow: none;
+			}
+
+			&:has(.gb-accordion__toggle[aria-expanded="true"]) {
+				background: rgba($c-grayLight, 0.3);
+				border-color: rgba($c-gray, 0.4);
+				box-shadow: none;
+			}
+		}
+
+		.gb-accordion__toggle {
+			min-height: 50px;
+		}
+
+		.gb-accordion__toggle-icon {
+			background: transparent;
+			border: 1px solid rgba($c-gray, 0.3);
+			color: $c-gray;
+			border-radius: 4px;
+		}
+
+		.gb-accordion__toggle[aria-expanded="true"] .gb-accordion__toggle-icon {
+			background: $c-primary;
+			border-color: $c-primary;
+			color: $c-white;
+		}
+	}
 }

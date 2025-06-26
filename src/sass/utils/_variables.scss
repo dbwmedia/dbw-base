@@ -35,7 +35,7 @@ $f-colorTextLight: #f0f0f0;
 //--------------------------------------------------------------
 // # Spacing System
 //--------------------------------------------------------------
-$spaceBase: 75px;
+$spaceBase: 100px;
 $space: $spaceBase;
 
 $s-xs: calc($space / 4); // 25px
@@ -59,7 +59,7 @@ $padding-xs-default: 1.25em;
 //--------------------------------------------------------------
 
 // 🎯 BASE VALUE - Only change this one!
-$borderRadiusBase: 0px;
+$borderRadiusBase: 16px;
 
 // 🤖 AUTO-CALCULATED VARIATIONS (semantic & mathematically perfect)
 $borderRadiusXS: calc($borderRadiusBase / 2); // 8px  - Subtle rounding

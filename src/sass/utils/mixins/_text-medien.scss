@@ -27,6 +27,7 @@
 }
 
 // Boxed Background Mixin - KORRIGIERT für Content-Breite
+// Boxed Background Mixin - KORREKTE Lösung
 @mixin boxed-background($bg-color, $gradient: null, $shadow: $b-shadow) {
 	.dbw-text-medien-inner {
 		position: relative;
