@@ -1,0 +1,62 @@
+@use "../global" as *;
+
+// Parallax Hero Section
+.dbw-parallax {
+	position: relative;
+	min-height: 60vh;
+	overflow: hidden;
+	display: flex;
+	align-items: center;
+	justify-content: flex-start;
+
+	// Parallax Effect - überschreibt GenerateBlocks
+	background-attachment: fixed !important;
+	background-image: var(--inline-bg-image) !important;
+	background-repeat: no-repeat !important;
+	background-size: cover !important;
+
+	@include mq($until: $tablet) {
+		background-attachment: scroll !important; // Fallback für mobile
+	}
+
+	// Dark Overlay
+	&::after {
+		content: "";
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		background: rgba($c-black, 0.4);
+		z-index: 1;
+	}
+
+	// Content Container
+	&__content {
+		color: $f-colorTextLight;
+		z-index: 2;
+		display: flex;
+		flex-direction: column;
+		gap: $s-xs;
+
+		h2 {
+			font-size: $f-sizeH1Min;
+			font-weight: $f-weightBlack;
+			margin-bottom: 0;
+			color: $f-colorHeadingLight;
+			text-shadow: 2px 2px 8px rgba($c-black, 0.5);
+
+			@include mq($until: $tablet) {
+				font-size: $f-sizeH2;
+			}
+		}
+
+		p {
+			font-size: $f-sizeLarge;
+			margin-bottom: 0;
+			max-width: 600px;
+			color: $f-colorTextLight;
+			text-shadow: 1px 1px 4px rgba($c-black, 0.5);
+		}
+	}
+}

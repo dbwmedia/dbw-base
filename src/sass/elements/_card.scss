@@ -1,7 +1,7 @@
 @use "../global" as *;
 
 /* ----------------------------------------------------------
-    Basic Card Styles
+   Basic Card Styles
 ---------------------------------------------------------- */
 .card {
 	// Base Styling
@@ -11,6 +11,8 @@
 	padding: $s-sm;
 	position: relative;
 	overflow: hidden;
+	display: flex;
+	flex-direction: column;
 
 	// Smooth Transitions
 	transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
@@ -31,6 +33,7 @@
 			color: $f-colorHeading;
 			margin-bottom: calc($s-xs / 2);
 			line-height: $f-lineHeightTight;
+			margin-bottom: 0;
 		}
 
 		.card__subtitle {
@@ -58,8 +61,7 @@
 
 	// Card Footer
 	&__footer {
-		padding-top: $s-xs;
-		border-top: 1px solid $c-grayLight;
+		margin-top: auto;
 		display: flex;
 		justify-content: space-between;
 		align-items: center;
@@ -76,8 +78,8 @@
 	}
 
 	/* ----------------------------------
-     Card Variations
-  ---------------------------------- */
+    Card Variations
+ ---------------------------------- */
 
 	// Compact Card
 	&--compact {
@@ -155,8 +157,8 @@
 	}
 
 	/* ----------------------------------
-     Responsive Behavior
-  ---------------------------------- */
+    Responsive Behavior
+ ---------------------------------- */
 	@media (max-width: $tablet) {
 		padding: $s-xs;
 
@@ -174,8 +176,8 @@
 	}
 
 	/* ----------------------------------
-     Accessibility
-  ---------------------------------- */
+    Accessibility
+ ---------------------------------- */
 	&:focus-within {
 		box-shadow: $b-focus-ring, $b-shadow-hover;
 		outline: none;
@@ -187,6 +189,99 @@
 
 		&:hover {
 			transform: none;
+		}
+	}
+}
+
+/* ----------------------------------------------------------
+   Kühle Immobilien Brand Style - Icon Styling
+---------------------------------------------------------- */
+.card--services {
+	// App Icon Style für card__image (da du SVGs als img nutzt)
+	.card__image {
+		width: 64px;
+		height: 64px;
+		border-radius: 16px; // App Icon Rundung (nicht rund!)
+		padding: 16px;
+		box-shadow: 0 6px 20px rgba(74, 124, 89, 0.25);
+		position: relative;
+		object-fit: contain; // Damit SVG nicht gestaucht wird
+		transition: all 0.3s ease;
+		background-color: $c-primary-hover;
+		svg {
+			filter: invert(1);
+		}
+	}
+
+	// Hover-Effekt für die ganze Card
+	&:hover {
+		.card__image {
+			transform: scale(1.05);
+			box-shadow: 0 12px 32px rgba(74, 124, 89, 0.35);
+
+			&::after {
+				background: linear-gradient(135deg, #3a6b47 0%, #2d5a3d 100%);
+			}
+		}
+	}
+
+	/* Mobile Responsive */
+	@media (max-width: 768px) {
+		.card__image {
+			width: 56px;
+			height: 56px;
+			border-radius: 14px;
+			padding: 14px;
+
+			&::after {
+				border-radius: 14px;
+			}
+		}
+	}
+}
+
+/* ----------------------------------------------------------
+   Contact Card Variation - 1:1 Image Ratio
+---------------------------------------------------------- */
+.card.contact {
+	.card__image {
+		width: 100%;
+		aspect-ratio: 1 / 1; // Sorgt für perfektes 1:1 Verhältnis
+		height: auto; // Überschreibt die Standard-height
+		object-fit: cover;
+		border-radius: $borderRadiusS;
+		margin-bottom: $s-xs;
+	}
+
+	// Responsive Anpassungen
+	&.card--compact {
+		.card__image {
+			aspect-ratio: 1 / 1;
+			height: auto; // Überschreibt compact height
+			border-radius: $borderRadiusXS;
+		}
+	}
+
+	&.card--large {
+		.card__image {
+			aspect-ratio: 1 / 1;
+			height: auto; // Überschreibt large height
+			border-radius: $borderRadiusSM;
+		}
+	}
+
+	/* Mobile Responsive */
+	@media (max-width: $tablet) {
+		.card__image {
+			aspect-ratio: 1 / 1;
+			height: auto; // Überschreibt responsive height
+		}
+
+		&.card--large {
+			.card__image {
+				aspect-ratio: 1 / 1;
+				height: auto; // Überschreibt large responsive height
+			}
 		}
 	}
 }

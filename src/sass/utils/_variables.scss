@@ -1,8 +1,11 @@
+@use "sass:list";
+@use "sass:color";
+
 //--------------------------------------------------------------
 // # Base Colors
 //--------------------------------------------------------------
-$c-primary: #0071e3;
-$c-primary-hover: #0077ed;
+$c-primary: #054b1f; // Kühle Immobilien Hauptfarbe (Dunkelgrün)
+$c-primary-hover: #076d2a; // Hellere Variante für Hover-Effekte
 $c-primaryLight: #2ec8f4;
 $c-secondary: red;
 
@@ -24,13 +27,13 @@ $accent: #8b5cf6;
 //--------------------------------------------------------------
 $f-font: "Inter", Helvetica, Arial, sans-serif;
 $f-weight: 500;
-$f-sizeBody: 20px;
+$f-sizeBody: 16px;
 
 // Typography Colors (separate control)
 $f-colorText: #363636; // Text color (independent)
 $f-colorHeading: #222222; // Headline color (independent)
-$f-colorHeadingLight: #e0e0e0; // Headline color (independent)
-$f-colorTextLight: #f0f0f0;
+$f-colorHeadingLight: #f0f0f0; // Headline color (independent)
+$f-colorTextLight: #e0e0e0;
 
 //--------------------------------------------------------------
 // # Spacing System
@@ -59,7 +62,7 @@ $padding-xs-default: 1.25em;
 //--------------------------------------------------------------
 
 // 🎯 BASE VALUE - Only change this one!
-$borderRadiusBase: 16px;
+$borderRadiusBase: 6px;
 
 // 🤖 AUTO-CALCULATED VARIATIONS (semantic & mathematically perfect)
 $borderRadiusXS: calc($borderRadiusBase / 2); // 8px  - Subtle rounding
@@ -82,23 +85,21 @@ $border-radius-s: $borderRadiusXS; // 8px
 $border-radius-m: $borderRadiusS; // 16px
 $border-radius-xl: $borderRadiusXL; // 100px
 
-//------------------------------------------------------------
-
 //--------------------------------------------------------------
 // # Smart Button System
 //--------------------------------------------------------------
 // Base Values (only change these!)
 $b-padding-base: 14px 28px;
-$b-font-size-base: 16px;
+$b-font-size-base: $f-sizeBody;
 $b-borderRadius-base: $borderRadiusS; // uses your existing system
 $b-borderWidth-base: 1.5px;
 
 // Calculated Variations (auto-generated)
 $b-padding: $b-padding-base;
-$b-padding-small: calc(#{nth($b-padding-base, 1)} - 4px)
-	calc(#{nth($b-padding-base, 2)} - 8px);
-$b-padding-large: calc(#{nth($b-padding-base, 1)} + 4px)
-	calc(#{nth($b-padding-base, 2)} + 8px);
+$b-padding-small: calc(#{list.nth($b-padding-base, 1)} - 4px)
+	calc(#{list.nth($b-padding-base, 2)} - 8px);
+$b-padding-large: calc(#{list.nth($b-padding-base, 1)} + 4px)
+	calc(#{list.nth($b-padding-base, 2)} + 8px);
 
 $b-borderRadius: $b-borderRadius-base;
 $b-borderRadius-small: calc($b-borderRadius-base - 4px);
@@ -113,13 +114,13 @@ $b-letter-spacing: -0.02em;
 $b-primary-gradient: linear-gradient(
 	135deg,
 	$c-primary 0%,
-	lighten($c-primary, 8%) 50%,
-	lighten($c-primary, 12%) 100%
+	color.adjust($c-primary, $lightness: 8%) 50%,
+	color.adjust($c-primary, $lightness: 12%) 100%
 );
 $b-accent-gradient: linear-gradient(
 	135deg,
 	$c-accent 0%,
-	lighten($c-accent, 10%) 50%,
+	color.adjust($c-accent, $lightness: 10%) 50%,
 	$c-success 100%
 );
 
@@ -204,7 +205,7 @@ $wide: 1440px; // xxl
 // # Container
 //--------------------------------------------------------------
 $containerWidth: 80%;
-$containerMaxWidth: 1600px;
+$containerMaxWidth: 1200px;
 $containerPad: 10%;
 
 //--------------------------------------------------------------

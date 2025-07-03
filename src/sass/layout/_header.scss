@@ -1,146 +1,352 @@
 @use "../global" as *;
 
-.site-header {
+//--------------------------------------------------------------
+// # dbw Top Bar - Always Fixed
+//--------------------------------------------------------------
+.dbw-top-bar {
 	position: fixed;
 	top: 0;
+	left: 0;
+	right: 0;
+	z-index: 1001; // Above header
+	background: $c-black;
+	color: $f-colorTextLight;
+	font-size: $f-sizeSmall;
+	padding: calc($s-xs / 2) $containerPad;
+	text-align: center;
+
+	@include mq($until: $tablet) {
+		display: none;
+	}
+
+	.grid {
+		max-width: $containerMaxWidth;
+		margin: 0 auto;
+		display: grid;
+		grid-template-columns: 1fr 1fr auto auto;
+
+		align-items: center;
+		gap: $gap-s;
+
+		> div {
+			display: flex;
+			justify-content: flex-end;
+		}
+
+		@include mq($until: $laptop) {
+			padding: 0 3%;
+		}
+	}
+
+	// Einfache Link-Styles
+	a {
+		color: $f-colorTextLight;
+		text-decoration: none;
+		transition: $t-transition;
+
+		&:hover {
+			color: $c-white;
+		}
+	}
+
+	// Kleiner CTA Button
+	.dbw-cta {
+		background: rgba($c-white, 0.1);
+		padding: 4px 12px;
+		border-radius: $radius-subtle;
+		border: 1px solid rgba($c-white, 0.2);
+
+		&:hover {
+			background: rgba($c-white, 0.2);
+		}
+	}
+}
+
+//--------------------------------------------------------------
+// # Site Header
+//--------------------------------------------------------------
+.site-header {
+	position: fixed;
+	top: 50px; // Platz für Top Bar
 	right: 0;
 	left: 0;
 	z-index: 999;
-	background-color: transparent;
 	transition: $t-transition;
-	background-color: $c-white;
-	// background-image: linear-gradient(
-	// 	0deg,
-	// 	rgba(255, 255, 255, 0) 0%,
-	// 	rgba(0, 0, 0, 0.2) 100%
-	// );
 
-	padding: 20px 10%;
+	// Smart padding system using your variables
+	padding: calc($s-xs / 2) $containerPad;
 
-	@include mq($until: 1200px) {
-		padding: 20px 3%;
+	// Background states - using CSS custom properties for smooth transitions
+	background-color: transparent;
+	backdrop-filter: blur(0px);
+
+	@include mq($until: $laptop) {
+		padding: $s-xs 3%;
 	}
 
-	.menu-buttons {
-		@include mq($until: $phablet) {
-			display: none;
-		}
+	// Responsive: Top Bar ausgeblendet = Header nach oben
+	@include mq($until: $tablet) {
+		top: 0;
 	}
 
-	.inside-header .menu-toggle .gp-icon svg {
-		fill: $c-black;
-	}
-
+	// Header inner container
 	.inside-header {
-		color: $c-white;
+		color: $f-colorHeadingLight;
 		max-width: $containerMaxWidth;
 		padding: 0;
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
 
 		.menu-toggle {
 			background-color: transparent;
-			color: $c-white;
+			color: $f-colorHeadingLight;
+			border: none;
+			padding: $s-xs;
+			border-radius: $radius-subtle;
+			transition: $t-transition;
+
+			&:hover {
+				background-color: rgba($c-white, 0.1);
+			}
+
+			.gp-icon svg {
+				fill: currentColor;
+				transition: $t-transition;
+			}
+		}
+	}
+
+	//--------------------------------------------------------------
+	// # Logo
+	//--------------------------------------------------------------
+	.site-logo {
+		img {
+			max-height: 40px; // Consistent logo size
+			width: auto;
+			transition: $t-transition;
+		}
+	}
+
+	//--------------------------------------------------------------
+	// # Navigation
+	//--------------------------------------------------------------
+	.main-navigation {
+		background-color: transparent;
+
+		ul {
+			display: flex;
+			gap: $gap;
+
+			li {
+				background-color: transparent;
+
+				a {
+					font-size: $f-sizeBody;
+					color: $f-colorHeadingLight;
+					font-weight: $f-weightMedium;
+					text-decoration: none;
+					padding: 0;
+					display: block;
+					transition: all 0.3s ease;
+					letter-spacing: $f-letterSpacingNormal;
+					position: relative;
+
+					&:hover {
+						color: $c-white;
+						transform: translateY(-1px);
+					}
+
+					.dropdown-menu-toggle {
+						padding-right: 0;
+					}
+				}
+
+				// Current page indicator
+				&.current-menu-item a {
+					color: $c-white;
+					font-weight: $f-weightSemibold;
+				}
+			}
+		}
+	}
+
+	//--------------------------------------------------------------
+	// # CTA Button
+	//--------------------------------------------------------------
+	.menu-buttons {
+		padding-left: $gap;
+		@include mq($until: $phablet) {
+			display: none;
 		}
 
-		.gb-button.project {
+		.gb-button {
+			// Using your smart button system
+			padding: $b-padding-small;
+			font-size: $f-sizeBody;
+			font-weight: $b-font-weight;
+			border-radius: $b-borderRadius;
+			border: $b-borderWidth $b-borderStyle transparent;
+			background: $b-primary-gradient;
+			color: $c-white;
+			text-decoration: none;
+			transition: $t-transition;
+			box-shadow: $b-shadow;
+			letter-spacing: $b-letter-spacing;
+
+			&:hover {
+				transform: translateY(-1px);
+				box-shadow: $b-shadow-hover;
+			}
+
+			&:focus {
+				outline: none;
+				box-shadow: $b-focus-ring;
+			}
+
 			@include mq($until: $tablet) {
 				display: none;
 			}
 		}
 	}
 
-	.main-navigation,
-	.main-navigation {
-		background-color: transparent;
-		ul li {
-			background-color: transparent;
-			a {
-				font-size: $f-sizeBody;
-				color: $f-colorHeading;
-				transition: $t-transition;
-				font-weight: 500;
-				&:hover {
-					text-decoration: underline;
-					color: $f-colorText !important;
-				}
-			}
+	//--------------------------------------------------------------
+	// # Scrolled State
+	//--------------------------------------------------------------
+	&.scroll {
+		background: rgba($c-white, 0.95);
+		backdrop-filter: blur(20px);
+		box-shadow: 0 2px 20px rgba($c-black, 0.1);
 
-			&.current-menu-item {
-				a {
-					color: $f-colorHeading;
-					font-weight: 600;
-					&:hover {
-					}
+		.inside-header {
+			color: $f-colorHeading;
+
+			.menu-toggle {
+				color: $f-colorHeading;
+
+				&:hover {
+					background-color: rgba($c-black, 0.05);
 				}
 			}
 		}
+
+		.site-logo img {
+			// Optional: Smaller logo when scrolled
+			max-height: 35px;
+		}
+
+		.main-navigation ul li a {
+			color: $f-colorHeading;
+
+			&::after {
+				background: $c-primary;
+			}
+
+			&:hover {
+				color: $c-primary;
+
+				&::after {
+					width: 100%;
+					background: linear-gradient(
+						90deg,
+						$c-primary,
+						lighten($c-primary, 15%),
+						$c-primary
+					);
+				}
+			}
+		}
+
+		.menu-buttons .gb-button {
+			// Maintain button contrast in scrolled state
+			background: $b-primary-gradient;
+		}
 	}
-	// &.scroll {
-	// 	background: $c-white;
-	// 	.main-navigation ul li a {
-	// 		color: $c-headline;
-	// 	}
-	// }
 
 	@include mq($until: $tablet) {
-		margin-top: 0px;
+		margin-top: 0;
 	}
 }
 
-body .top-bar {
-	padding: 10px;
+//--------------------------------------------------------------
+// # Top Bar (Legacy - falls noch verwendet)
+//--------------------------------------------------------------
+.top-bar {
+	padding: $s-xs;
 	background-color: $c-black;
-	/* Breakpoint Settings */
+	color: $c-white;
+	font-size: $f-sizeSmall;
+	text-align: center;
+
 	@include mq($until: $tablet) {
 		display: none;
 	}
 }
 
+//--------------------------------------------------------------
+// # Mobile Slideout Menu
+//--------------------------------------------------------------
 #generate-slideout-menu {
-	//background-color: $c-black;
-
 	background: $c-white;
-	box-shadow: 0 5px 15px 5px rgba(0, 0, 0, 0.2);
-
+	box-shadow: 0 5px 30px rgba($c-black, 0.15);
 	color: $c-body;
-	padding: 50px 15px 0;
+	padding: $s-lg $gap 0;
 	min-width: 90vw;
+	border-radius: 0 0 0 $radius-enhanced;
 
 	.slideout-exit {
 		position: absolute;
 		top: -40px;
 		right: -155px;
+
+		svg {
+			color: $c-body;
+			transition: $t-transition;
+		}
+
+		&:hover svg {
+			color: $c-primary;
+		}
 	}
 
+	// CTA Button in mobile menu
 	a[class*="button"]:not(.our-work):not(.button-icon):not(
 			.gb-accordion__toggle
 		) {
-		font-size: 20px;
+		font-size: $f-sizeLarge;
+		margin-top: $gap;
+		display: inline-block;
 	}
 
 	.main-nav {
-		margin-bottom: 10px;
+		margin-bottom: $gap-s;
+
 		ul {
-			padding: 0 0 0 21px;
+			padding: 0 0 0 $gap-s;
 		}
 	}
 
 	.menu-item {
-		border-top: 1px solid $c-white;
+		border-top: 1px solid $c-grayLight;
 
 		&:last-child {
-			border-bottom: 1px solid $c-white;
+			border-bottom: 1px solid $c-grayLight;
 		}
 
 		a {
-			padding-left: 0;
+			padding: $gap-s 0;
 			color: $c-body;
-			font-size: 28px;
-			font-weight: 500;
-		}
-	}
+			font-size: $f-sizeH5;
+			font-weight: $f-weightMedium;
+			text-decoration: none;
+			display: block;
+			transition: $t-transition;
 
-	.slideout-exit svg {
-		color: $c-body;
+			&:hover {
+				color: $c-primary;
+				padding-left: $s-xs;
+			}
+		}
 	}
 
 	.gb-button.project {
@@ -148,21 +354,55 @@ body .top-bar {
 	}
 }
 
+//--------------------------------------------------------------
+// # Slideout Animation Improvements
+//--------------------------------------------------------------
 .offside-js--interact .offside,
 .offside-js--interact .offside-sliding-element {
-	transition-timing-function: ease-out;
+	transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1); // Modern easing
+	transition-duration: 0.3s;
 }
 
 nav.offside--right {
 	left: auto;
 	right: calc(var(--gp-slideout-width) * -1.5);
+
+	&.is-open:not(.slideout-transition) {
+		transform: translate3d(
+			calc(var(--gp-slideout-width) * -1 - 20px),
+			0,
+			0
+		) !important;
+	}
 }
 
-nav.offside--right.is-open:not(.slideout-transition),
-nav.offside-js--is-right .offside-sliding-element {
-	transform: translate3d(
-		calc(var(--gp-slideout-width) * -1 - 20px),
-		0,
-		0
-	) !important;
+//--------------------------------------------------------------
+// # Accessibility Improvements
+//--------------------------------------------------------------
+.menu-toggle {
+	.screen-reader-text {
+		@include screen-reader-text(); // Add this mixin to your globals if not exists
+	}
+
+	&:focus-visible {
+		outline: 2px solid $c-primary;
+		outline-offset: 2px;
+	}
+}
+
+// Skip to content link (add to your HTML)
+.skip-link {
+	position: absolute;
+	top: -40px;
+	left: 6px;
+	background: $c-primary;
+	color: $c-white;
+	padding: 8px 16px;
+	text-decoration: none;
+	border-radius: $radius-subtle;
+	z-index: 1000;
+
+	&:focus {
+		top: 6px;
+	}
 }

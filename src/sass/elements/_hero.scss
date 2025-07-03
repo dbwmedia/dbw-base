@@ -1,65 +1,222 @@
 @use "../global" as *;
 
-.hero-full {
-	background-color: $c-black;
-	height: 100vh;
+//--------------------------------------------------------------
+// # DBW Hero Base (gemeinsame Eigenschaften)
+//--------------------------------------------------------------
+%dbw-hero-base {
+	position: relative;
 	display: flex;
-	align-items: center;
-	justify-content: center;
+	background-color: $c-black;
 	color: $c-white;
+	overflow: hidden;
 
-	&::before {
-		content: "";
-		position: absolute;
-		top: 0;
-		left: 0;
-		width: 100%;
-		height: 100%;
-		background-color: rgba(0, 0, 0, 0.7);
-		z-index: 1;
-	}
-
+	// Automatische Textfarben für alle Überschriften
 	h1,
 	h2,
 	h3,
 	h4,
 	h5,
-	h6,
+	h6 {
+		color: $f-colorHeadingLight;
+	}
+
 	p {
-		color: $c-white;
+		color: $f-colorTextLight;
+		font-size: $f-sizeLarge;
+		line-height: $f-lineHeightRelaxed;
+		margin-bottom: $s-sm;
 	}
 
-	.content {
-		position: relative;
-		z-index: 2;
-	}
-
-	.scroll-down-icon {
+	// Overlay für bessere Lesbarkeit
+	&::before {
+		content: "";
 		position: absolute;
-		bottom: 5%;
+		inset: 0;
+		background: rgba($c-black, 0.5);
+		z-index: 2;
+		pointer-events: none;
+	}
+
+	// DBW Background Container - NEU für Parallax
+	.dbw-hero-background {
+		position: absolute;
+		inset: 0;
+		width: 100%;
+		max-width: 100vw;
+		height: 100%;
+		z-index: 1;
+
+		// Wenn background-image verwendet wird
+		background-size: cover;
+		background-position: center;
+		background-repeat: no-repeat;
+
+		// Für img Elemente
+		img {
+			width: 100%;
+			height: 100%;
+			object-fit: cover;
+			object-position: center;
+		}
+	}
+
+	// DBW Content Container
+	.dbw-hero-content {
+		display: flex;
+		flex-direction: column;
+		align-items: flex-start;
+		justify-content: center;
+		position: relative;
+		z-index: 3;
+	}
+
+	// DBW Scroll Down Indicator
+	.dbw-scroll-indicator {
+		position: absolute;
+		bottom: 10%;
 		left: 50%;
 		transform: translateX(-50%);
-		z-index: 99;
+		z-index: 3;
+		opacity: 0.8;
+		transition: $t-transition;
+
+		&:hover {
+			opacity: 1;
+			transform: translateX(-50%) translateY(-4px);
+		}
 	}
 
-	/* Breakpoint Settings */
-
-	@include mq($until: $tablet) {
+	// Background Image Support - ANGEPASST
+	&.has-bg-image {
+		&::before {
+			background: rgba($c-black, 0.6); // Stärkeres Overlay bei Bildern
+		}
 	}
 }
 
-.hero-half {
-	background-color: $c-black;
-	height: 50vh;
-	display: flex;
-	align-items: flex-end;
-	justify-content: flex-start;
-	color: $c-white;
+//--------------------------------------------------------------
+// # DBW Hero Full (Startseite)
+//--------------------------------------------------------------
+.dbw-hero-full {
+	@extend %dbw-hero-base;
+	min-height: 100vh;
+	min-height: 100dvh;
 
-	/* Breakpoint Settings */
+	h1 {
+		font-size: clamp($f-sizeH1Min, 8vw, $f-sizeH1Max);
+		font-weight: $f-weightH1;
+		letter-spacing: $f-letterSpacingTight;
+		line-height: $f-lineHeightTight;
+		margin-bottom: $s-sm;
+	}
 
-	@include mq($until: $tablet) {
-		height: 30vh;
-		padding-top: 250px;
+	// Mobile Optimierungen
+	@media (max-width: $tablet) {
+		min-height: 80vh;
+		padding-top: 80px; // Platz für Header
+
+		.dbw-hero-content {
+			padding: 0 $s-sm;
+		}
+
+		h1 {
+			font-size: clamp(2rem, 6vw, 3rem);
+		}
+	}
+}
+
+//--------------------------------------------------------------
+// # DBW Hero Half (Unterseiten)
+//--------------------------------------------------------------
+.dbw-hero-half {
+	@extend %dbw-hero-base;
+	min-height: 60vh;
+
+	// Mobile Optimierungen
+	@media (max-width: $tablet) {
+		min-height: 40vh;
+		padding-top: 80px;
+		align-items: center;
+
+		.dbw-hero-content {
+			padding-bottom: $s-md;
+			text-align: center;
+		}
+
+		h1 {
+			font-size: clamp(1.75rem, 5vw, 2.5rem);
+		}
+	}
+}
+
+//--------------------------------------------------------------
+// # DBW Hero Varianten (optional)
+//--------------------------------------------------------------
+.dbw-hero-compact {
+	@extend %dbw-hero-base;
+	min-height: 40vh;
+
+	@media (max-width: $tablet) {
+		min-height: 30vh;
+		padding-top: 60px;
+	}
+}
+
+.dbw-hero-gradient {
+	&::before {
+		background: linear-gradient(
+			135deg,
+			rgba($c-primary, 0.8) 0%,
+			rgba($c-black, 0.6) 100%
+		);
+	}
+}
+
+.dbw-hero-primary {
+	background-color: $c-primary;
+
+	&::before {
+		background: linear-gradient(
+			135deg,
+			rgba($c-primary, 0.2) 0%,
+			rgba($c-black, 0.3) 100%
+		);
+	}
+}
+
+//--------------------------------------------------------------
+// # Nachfolgende Sektionen - Normal Scroll
+//--------------------------------------------------------------
+.dbw-hero-full ~ *,
+.dbw-hero-half ~ *,
+.dbw-hero-compact ~ * {
+	position: relative;
+	z-index: 10;
+
+	// Sicherstellen dass alle nachfolgenden Sektionen einen Background haben
+	&:not([style*="background"]):not(.has-background) {
+		background: $c-white;
+	}
+}
+
+// Spezielle Behandlung für WordPress Blocks und GeneratePress
+.site-main > *:not(.dbw-hero-full):not(.dbw-hero-half):not(.dbw-hero-compact),
+.content-area
+	> *:not(.dbw-hero-full):not(.dbw-hero-half):not(.dbw-hero-compact),
+main > *:not(.dbw-hero-full):not(.dbw-hero-half):not(.dbw-hero-compact) {
+	position: relative;
+	z-index: 10;
+
+	&:not([style*="background"]):not(.has-background) {
+		background: $c-white;
+	}
+}
+
+// Optional: Smooth Overlap für erste Section nach Hero
+.dbw-hero-full + *,
+.dbw-hero-half + *,
+.dbw-hero-compact + * {
+	&.dbw-overlap {
+		margin-top: -5vh; // Overlap nur wenn explizit gewünscht
 	}
 }

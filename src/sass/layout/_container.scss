@@ -1,31 +1,58 @@
 @use "../global" as *;
-
 section,
 .section {
 	&--content__regular {
 		@include containerWrap;
 	}
-
 	&--fullwidth {
 		width: 100%;
 		padding: $s-md 10%;
 		@media (max-width: 1200px) {
 			padding: $s-sm 3%;
 		}
-
 		@media (max-width: 500px) {
 		}
-
 		& > * {
 			@include containerWrap();
 			width: 100%;
 		}
 	}
-
+	&--fullwidth-compact {
+		width: 100%;
+		padding: $s-sm 10%;
+		@media (max-width: 1200px) {
+			padding: $s-xs 3%;
+		}
+		& > * {
+			@include containerWrap();
+			width: 100%;
+		}
+	}
+	&--fullwidth-compact-top {
+		width: 100%;
+		padding: $s-xs 10% $s-md 10%;
+		@media (max-width: 1200px) {
+			padding: $s-xs 3% $s-sm 3%;
+		}
+		& > * {
+			@include containerWrap();
+			width: 100%;
+		}
+	}
+	&--fullwidth-compact-bottom {
+		width: 100%;
+		padding: $s-md 10% $s-xs 10%;
+		@media (max-width: 1200px) {
+			padding: $s-sm 3% $s-xs 3%;
+		}
+		& > * {
+			@include containerWrap();
+			width: 100%;
+		}
+	}
 	&--content__fullwidthmax {
 		min-width: 100%;
 	}
-
 	&--content__centered {
 		* {
 			text-align: center;

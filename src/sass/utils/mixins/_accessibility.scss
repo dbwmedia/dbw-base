@@ -1,0 +1,50 @@
+//--------------------------------------------------------------
+// # Accessibility Mixins
+//--------------------------------------------------------------
+
+// Screen Reader Text - versteckt Text visuell, aber Screen Reader können ihn lesen
+@mixin screen-reader-text {
+	position: absolute !important;
+	clip: rect(1px, 1px, 1px, 1px);
+	clip-path: inset(50%);
+	width: 1px;
+	height: 1px;
+	overflow: hidden;
+	white-space: nowrap;
+	border: 0;
+	margin: -1px;
+	padding: 0;
+}
+
+// Optional: Mixin um Screen Reader Text wieder sichtbar zu machen (z.B. bei :focus)
+@mixin screen-reader-text-show {
+	position: static !important;
+	clip: auto;
+	clip-path: none;
+	width: auto;
+	height: auto;
+	overflow: visible;
+	white-space: normal;
+	margin: 0;
+}
+
+// Skip Link Mixin - für "Skip to content" Links
+@mixin skip-link {
+	@include screen-reader-text;
+
+	&:focus {
+		@include screen-reader-text-show;
+		position: absolute;
+		top: 6px;
+		left: 6px;
+		background: $c-primary;
+		color: $c-white;
+		padding: 8px 16px;
+		text-decoration: none;
+		border-radius: $radius-subtle;
+		z-index: 1000;
+		font-size: $f-sizeBody;
+		font-weight: $f-weightMedium;
+		box-shadow: $b-shadow;
+	}
+}

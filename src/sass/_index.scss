@@ -53,6 +53,8 @@
 @use "components/services";
 @use "components/accordion";
 @use "components/testimonial";
+@use "components/counter";
+@use "components/blur-container";
 
 //  # ELEMENTS
 //  > zusammengefasste Sections/Abschnitte
@@ -61,3 +63,4 @@
 @use "elements/hero";
 @use "elements/button";
 @use "elements/card";
+@use "elements/parallax";

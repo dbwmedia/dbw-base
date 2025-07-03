@@ -1,40 +1,46 @@
 @use "../global" as *;
+
 //--------------------------------------------------------------
 // # DBW Text-Medien Component - Clean Version
 //--------------------------------------------------------------
+
 // Base Component
 .dbw-text-medien {
 	// Grid Layout (GenerateBlocks Grid)
 	.grid {
-		gap: $gap-xl; // 60px gap
+		gap: $gap-xl;
 		align-items: center;
-		// Responsive: Stack on tablet and below
-		@media (max-width: $tablet) {
-			grid-template-columns: 1fr;
+
+		// Responsive: Stack on phablet and below
+		@include mq($until: $phablet) {
+			grid-template-columns: 1fr !important;
 			gap: $gap; // 40px gap
 			text-align: center;
-		}
-		// Image first on mobile (reverse order)
-		@media (max-width: $mobile) {
-			> div:last-child {
+
+			// Media always first on mobile - SIMPLE!
+			.medien {
 				order: -1;
 			}
 		}
 	}
+
 	// Typography Styles
 	.text {
 		display: flex;
 		flex-direction: column;
 		gap: $s-xs; // 18.75px
+
 		.gb-text {
 			&:is(h1, h2, h3, h4, h5, h6) {
 				margin-bottom: 0;
 			}
+
 			&:is(p) {
 				margin-bottom: 0;
 			}
 		}
 	}
+
 	// Image Styles
 	.medien [class*="gb-media"] {
 		width: 100%;
@@ -42,11 +48,13 @@
 		border-radius: $radius-standard; // 16px
 		box-shadow: $b-shadow;
 		transition: $t-transition;
+
 		&:hover {
 			transform: scale(1.02);
 			box-shadow: $b-shadow-hover;
 		}
-		@media (max-width: $mobile) {
+
+		@include mq($until: $mobile) {
 			border-radius: $radius-subtle; // 8px
 		}
 	}
@@ -63,6 +71,7 @@
 	@include text-colors(var(--color-white), var(--color-gray-light));
 	@include image-shadow(0 8px 32px rgba($c-black, 0.3));
 }
+
 .dbw-text-medien--accent {
 	@include fullwidth-background(
 		rgba($c-primary, 0.04),
@@ -79,6 +88,7 @@
 		linear-gradient(135deg, $c-primary 0%, $c-accent 50%, $c-primaryLight 100%)
 	);
 }
+
 .dbw-text-medien--success {
 	@include fullwidth-background(
 		rgba($c-success, 0.05),
@@ -91,12 +101,14 @@
 	);
 	@include text-colors(darken($c-success, 10%));
 }
+
 //--------------------------------------------------------------
-// # Boxed Background Versions - KORRIGIERT
+// # Boxed Background Versions
 //--------------------------------------------------------------
 .dbw-text-medien--boxed {
 	@include boxed-background(var(--color-white));
 }
+
 .dbw-text-medien--boxed-dark {
 	@include boxed-background(
 		var(--color-black),
@@ -106,6 +118,7 @@
 	@include text-colors(var(--color-white), var(--color-gray-light));
 	@include image-shadow(0 8px 32px rgba($c-black, 0.3));
 }
+
 .dbw-text-medien--boxed-accent {
 	@include boxed-background(
 		rgba($c-primary, 0.08),
@@ -123,6 +136,7 @@
 		linear-gradient(135deg, $c-primary 0%, $c-accent 50%, $c-primaryLight 100%)
 	);
 }
+
 .dbw-text-medien--boxed-success {
 	@include boxed-background(
 		rgba($c-success, 0.08),
@@ -135,13 +149,16 @@
 	);
 	@include text-colors(darken($c-success, 10%));
 }
+
 .dbw-text-medien--boxed-glass {
 	@include boxed-background($b-glass-bg, null, 0 8px 32px rgba($c-black, 0.1));
+
 	.dbw-text-medien-inner .grid::before {
 		backdrop-filter: blur(20px);
 		border: 1px solid $b-glass-border;
 	}
 }
+
 .dbw-text-medien--boxed-glass-dark {
 	@include boxed-background(
 		rgba($c-black, 0.8),
@@ -149,54 +166,65 @@
 		0 8px 32px rgba($c-black, 0.25)
 	);
 	@include text-colors(var(--color-white), var(--color-gray-light));
+
 	.dbw-text-medien-inner .grid::before {
 		backdrop-filter: blur(20px);
 		border: 1px solid rgba(255, 255, 255, 0.1);
 	}
 }
+
 //--------------------------------------------------------------
-// # Layout & Style Modifier (bleiben wie sie sind)
+// # Layout & Style Modifier
 //--------------------------------------------------------------
 .dbw-text-medien--large {
 	.dbw-text-medien-inner {
 		.grid {
 			gap: calc($gap-xl * 1.5); // 90px gap
-			@media (max-width: $tablet) {
+
+			@include mq($until: $phablet) {
 				gap: calc($gap * 1.5); // 60px gap
 			}
 		}
+
 		.text {
 			gap: $s-sm; // 50px
 		}
 	}
 }
+
 .dbw-text-medien--compact {
 	.dbw-text-medien-inner {
 		.grid {
 			gap: $gap; // 40px gap
-			@media (max-width: $tablet) {
+
+			@include mq($until: $phablet) {
 				gap: $gap-s; // 20px gap
 			}
 		}
+
 		.text {
 			gap: calc($s-xs / 2); // ~9px
 		}
 	}
 }
+
 .dbw-text-medien--rounded {
 	.dbw-text-medien-inner {
 		.medien [class*="gb-media"] {
 			border-radius: $radius-prominent; // 32px
-			@media (max-width: $mobile) {
+
+			@include mq($until: $mobile) {
 				border-radius: $radius-enhanced; // 24px
 			}
 		}
 	}
 }
+
 .dbw-text-medien--flat {
 	.dbw-text-medien-inner {
 		.medien [class*="gb-media"] {
 			box-shadow: none;
+
 			&:hover {
 				box-shadow: $b-shadow;
 				transform: scale(1.01);
@@ -204,10 +232,10 @@
 		}
 	}
 }
+
 //--------------------------------------------------------------
-// # Einfach neue Farben hinzufügen
+// # Additional Color Versions
 //--------------------------------------------------------------
-// Neue Vollbreiten-Version hinzufügen:
 .dbw-text-medien--warning {
 	@include fullwidth-background(
 		rgba($c-warning, 0.05),
@@ -220,7 +248,7 @@
 	);
 	@include text-colors(darken($c-warning, 15%));
 }
-// Neue Boxed-Version hinzufügen:
+
 .dbw-text-medien--boxed-warning {
 	@include boxed-background(
 		rgba($c-warning, 0.08),

@@ -1,10 +1,390 @@
 @use "../_global" as *;
 
-/* Flexbox */
-.flex-two {
+//--------------------------------------------------------------
+// # Grid & Flex System - Override with #main
+//--------------------------------------------------------------
+
+//==============================================================
+// # SMART AUTO GRID SYSTEM
+//==============================================================
+
+// Base Grid Container
+#main .grid {
+	display: grid !important;
+	gap: $gap-xl;
+}
+
+//--------------------------------------------------------------
+// # Auto Grid Classes (JavaScript Applied)
+//--------------------------------------------------------------
+
+// 1 Child - Full Width Centered
+#main .grid-auto-1 {
+	grid-template-columns: 1fr;
+
+	> div {
+		max-width: 600px;
+		margin: 0 auto;
+	}
+}
+
+// 2 Children - Two Columns
+#main .grid-auto-2 {
+	grid-template-columns: repeat(2, 1fr);
+
+	@include mq($until: $tablet) {
+		grid-template-columns: 1fr;
+	}
+}
+
+// 3 Children - Three Columns
+#main .grid-auto-3 {
+	grid-template-columns: repeat(3, 1fr);
+	gap: $gap-s;
+
+	@include mq($until: $laptop) {
+		grid-template-columns: repeat(2, 1fr);
+	}
+
+	@include mq($until: $tablet) {
+		grid-template-columns: 1fr;
+	}
+}
+
+// 4 Children - Four Columns
+#main .grid-auto-4 {
+	grid-template-columns: repeat(4, 1fr);
+	gap: $gap-s;
+
+	@include mq($until: $laptop) {
+		grid-template-columns: repeat(2, 1fr);
+	}
+
+	@include mq($until: $tablet) {
+		grid-template-columns: 1fr;
+	}
+}
+
+// 5 Children - Five Columns
+#main .grid-auto-5 {
+	grid-template-columns: repeat(5, 1fr);
+	gap: $gap-s;
+
+	@include mq($until: $laptop) {
+		grid-template-columns: repeat(3, 1fr);
+	}
+
+	@include mq($until: $tablet) {
+		grid-template-columns: repeat(2, 1fr);
+	}
+
+	@include mq($until: $mobile) {
+		grid-template-columns: 1fr;
+	}
+}
+
+// 6+ Children - Auto-Fit Many Items
+#main .grid-auto-6,
+#main .grid-auto-many {
+	grid-template-columns: repeat(auto-fit, minmax(min(200px, 100%), 1fr));
+
+	@include mq($until: $tablet) {
+		grid-template-columns: repeat(auto-fit, minmax(min(150px, 100%), 1fr));
+	}
+
+	@include mq($until: $mobile) {
+		grid-template-columns: 1fr;
+	}
+}
+
+//--------------------------------------------------------------
+// # Smart Responsive Auto Grid
+//--------------------------------------------------------------
+#main .grid-responsive {
+	display: grid !important;
+	gap: $gap-s;
+	grid-template-columns: repeat(auto-fit, minmax(min(250px, 100%), 1fr));
+
+	> div {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		text-align: center;
+	}
+
+	@include mq($until: $tablet) {
+		grid-template-columns: repeat(auto-fit, minmax(min(200px, 100%), 1fr));
+	}
+
+	@include mq($until: $mobile) {
+		grid-template-columns: 1fr;
+	}
+}
+
+//==============================================================
+// # STATIC GRID SYSTEM
+//==============================================================
+
+//--------------------------------------------------------------
+// # Two Column Grids
+//--------------------------------------------------------------
+#main .grid-two {
+	display: grid !important;
+	grid-template-columns: repeat(2, 1fr);
+	gap: $gap-s;
+
+	// > div {
+	// 	display: flex;
+	// 	flex-direction: column;
+	// 	align-items: center;
+	// 	text-align: center;
+	// }
+
+	@include mq($until: $mobile) {
+		grid-template-columns: 1fr;
+	}
+}
+
+//--------------------------------------------------------------
+// # Three Column Grids
+//--------------------------------------------------------------
+#main .grid-three {
+	display: grid !important;
+	grid-template-columns: repeat(3, 1fr);
+	gap: $gap-s;
+
+	.item {
+		display: flex;
+		flex-direction: column;
+		gap: $gap-s;
+	}
+
+	@include mq($until: $laptop) {
+		grid-template-columns: repeat(2, 1fr);
+	}
+
+	@include mq($until: $tablet) {
+		grid-template-columns: 1fr;
+
+		// > div {
+		// 	display: flex;
+		// 	flex-direction: column;
+		// 	align-items: stretch;
+		// 	flex-grow: 1;
+
+		// 	p {
+		// 		text-align: center;
+		// 	}
+		// }
+	}
+}
+
+#main .grid-three-auto {
+	display: grid !important;
+	grid-template-columns: repeat(auto-fill, minmax(min(376px, 100%), 1fr));
+	gap: $gap-s;
+
+	> div {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		text-align: center;
+	}
+}
+
+//--------------------------------------------------------------
+// # Four Column Grids
+//--------------------------------------------------------------
+#main .grid-four {
+	display: grid !important;
+	grid-template-columns: repeat(4, 1fr);
+	gap: $gap-s;
+
+	.item {
+		display: flex;
+		flex-direction: column;
+		gap: $gap-s;
+	}
+
+	@include mq($until: $laptop) {
+		grid-template-columns: repeat(2, 1fr);
+	}
+
+	@include mq($until: $tablet) {
+		grid-template-columns: 1fr;
+
+		// > div {
+		// 	display: flex;
+		// 	flex-direction: column;
+		// 	align-items: stretch;
+		// 	flex-grow: 1;
+
+		// 	p {
+		// 		text-align: center;
+		// 	}
+		// }
+	}
+}
+
+//--------------------------------------------------------------
+// # Development Grid
+//--------------------------------------------------------------
+#main .grid-dev {
+	display: grid !important;
+	grid-template-columns: repeat(auto-fill, minmax(min(390px, 100%), 1fr));
+	gap: 16px;
+}
+
+//==============================================================
+// # LAYOUT GRIDS (Proportional)
+//==============================================================
+
+//--------------------------------------------------------------
+// # Two Column Layout Variations
+//--------------------------------------------------------------
+#main .grid-six-six {
+	display: grid;
+	grid-template-columns: 6fr 6fr;
+	gap: $gap;
+	margin: $s-md auto;
+
+	> div {
+		display: flex;
+		flex-direction: column;
+	}
+
+	@include mq($until: $laptop) {
+		grid-template-columns: 1fr;
+		gap: $gap-s;
+	}
+
+	@include mq($until: $mobile) {
+		gap: 16px;
+	}
+}
+
+#main .grid-eight-four {
+	display: grid;
+	grid-template-columns: 8fr 4fr;
+	gap: $gap;
+
+	> div {
+		display: flex;
+		flex-direction: column;
+	}
+
+	@include mq($until: $laptop) {
+		grid-template-columns: 1fr;
+		gap: $gap-s;
+
+		> div {
+			align-items: flex-start;
+		}
+	}
+
+	@include mq($until: $mobile) {
+		gap: 16px;
+	}
+}
+
+#main .grid-four-eight {
+	display: grid;
+	grid-template-columns: 4fr 8fr;
+	gap: $gap;
+	margin: $s-md auto;
+
+	> div {
+		display: flex;
+		flex-direction: column;
+	}
+
+	@include mq($until: $laptop) {
+		grid-template-columns: 1fr;
+		gap: $gap-s;
+	}
+
+	@include mq($until: $mobile) {
+		gap: 16px;
+	}
+}
+
+#main .grid-nine-three {
+	display: grid;
+	grid-template-columns: 9fr 3fr;
+	gap: $gap;
+	margin: $s-md auto;
+
+	> div {
+		display: flex;
+		flex-direction: column;
+	}
+
+	@include mq($until: $laptop) {
+		grid-template-columns: 1fr;
+		gap: $gap-s;
+	}
+
+	@include mq($until: $mobile) {
+		gap: 16px;
+	}
+}
+
+#main .grid-two-ten {
+	display: grid;
+	grid-template-columns: 2fr 10fr;
+	gap: $gap;
+	margin: $s-md auto;
+
+	> div {
+		display: flex;
+		flex-direction: column;
+	}
+
+	@include mq($until: $laptop) {
+		grid-template-columns: 1fr;
+		gap: $gap-s;
+	}
+
+	@include mq($until: $mobile) {
+		gap: 16px;
+	}
+}
+
+//--------------------------------------------------------------
+// # Three Column Layout
+//--------------------------------------------------------------
+#main .grid-three-three-six {
+	display: grid;
+	grid-template-columns: 3fr 3fr 6fr;
+	gap: $gap;
+	margin: $s-md auto;
+
+	> div {
+		display: flex;
+		flex-direction: column;
+	}
+
+	@include mq($until: $laptop) {
+		grid-template-columns: 1fr;
+		gap: $gap-s;
+	}
+
+	@include mq($until: $mobile) {
+		gap: 16px;
+	}
+}
+
+//==============================================================
+// # FLEXBOX SYSTEM
+//==============================================================
+
+//--------------------------------------------------------------
+// # Two Column Flex
+//--------------------------------------------------------------
+#main .flex-two {
 	display: flex;
 	gap: 75px;
-	margin: 50px auto;
+	margin: $s-md auto;
 
 	> div {
 		display: flex;
@@ -13,14 +393,14 @@
 		align-items: flex-start;
 	}
 
-	/* Breakpoint Settings */
-
 	@include mq($until: $laptop) {
 		flex-direction: column;
+
 		> div {
 			display: flex;
 			flex-direction: column;
 			align-items: flex-start;
+
 			p {
 				text-align: left;
 			}
@@ -28,11 +408,12 @@
 	}
 }
 
-.flex-two-content-width {
+#main .flex-two-content-width {
 	.content {
 		display: flex;
 		gap: 75px;
-		margin: 50px auto;
+		margin: $s-md auto;
+
 		> div {
 			display: flex;
 			flex: 1;
@@ -40,8 +421,6 @@
 			align-items: flex-start;
 		}
 	}
-
-	/* Breakpoint Settings */
 
 	@include mq($until: $laptop) {
 		.content {
@@ -51,6 +430,7 @@
 				display: flex;
 				flex-direction: column;
 				align-items: flex-start;
+
 				p {
 					text-align: left;
 				}
@@ -59,10 +439,13 @@
 	}
 }
 
-.flex-three {
+//--------------------------------------------------------------
+// # Three Column Flex
+//--------------------------------------------------------------
+#main .flex-three {
 	display: flex;
 	gap: $gap-s;
-	margin: 50px auto;
+	margin: $s-md auto;
 
 	> div {
 		display: flex;
@@ -71,14 +454,14 @@
 		align-items: center;
 	}
 
-	/* Breakpoint Settings */
-
 	@include mq($until: $desktop) {
 		flex-direction: column;
+
 		> div {
 			display: flex;
 			flex-direction: column;
 			align-items: center;
+
 			p {
 				text-align: center;
 			}
@@ -86,259 +469,107 @@
 	}
 }
 
-.d-flex-wrap {
+//--------------------------------------------------------------
+// # Flex Utilities
+//--------------------------------------------------------------
+#main .d-flex-wrap {
 	display: flex;
 	flex-wrap: wrap;
 	gap: 10px;
 }
-s .d-flex-wrap-justify-spacearound {
+
+#main .d-flex-wrap-justify-spacearound {
 	display: flex;
 	flex-wrap: wrap;
 	gap: 10px;
 	justify-content: space-around;
 }
 
-/* Grid */
+//==============================================================
+// # GRID MODIFIERS & UTILITIES
+//==============================================================
 
-.grid-two {
-	display: grid !important;
-	grid-template-columns: repeat(2, 1fr);
-	gap: $gap-s;
-
+//--------------------------------------------------------------
+// # Alignment Modifiers
+//--------------------------------------------------------------
+#main .grid-left {
 	> div {
-		display: flex;
-		flex-direction: column;
-		align-items: center;
-		text-align: center; // Für p-Tags direkt anwenden
-	}
-
-	/* Breakpoint Settings */
-
-	@include mq($until: $laptop) {
-	}
-
-	@include mq($until: $mobile) {
-		grid-template-columns: repeat(1, 1fr);
+		align-items: flex-start;
+		text-align: left;
 	}
 }
 
-.grid-three {
-	display: grid !important;
-	grid-template-columns: repeat(3, 1fr);
-	gap: $gap-s;
+#main .grid-right {
+	> div {
+		align-items: flex-end;
+		text-align: right;
+	}
+}
 
-	.item {
+#main .grid-stretch {
+	> div {
+		align-items: stretch;
+		height: 100%;
+	}
+}
+
+//--------------------------------------------------------------
+// # Gap Modifiers
+//--------------------------------------------------------------
+#main .grid-gap-none {
+	gap: 0;
+}
+
+#main .grid-gap-small {
+	gap: $gap-s;
+}
+
+#main .grid-gap-large {
+	gap: $gap-xl;
+}
+
+//--------------------------------------------------------------
+// # Equal Height Items
+//--------------------------------------------------------------
+#main .grid-equal-height {
+	> div {
 		display: flex;
 		flex-direction: column;
-		gap: 20px;
-	}
+		height: 100%;
 
-	/* Breakpoint Settings */
-
-	@include mq($until: $laptop) {
-		grid-template-columns: repeat(2, 1fr);
-	}
-
-	@include mq($until: $tablet) {
-		grid-template-columns: repeat(1, 1fr);
-		> div {
-			display: flex;
-			flex-direction: column;
-			align-items: stretch;
-			flex-grow: 1;
-			p {
-				text-align: center;
-			}
+		> *:last-child {
+			margin-top: auto;
 		}
 	}
 }
 
-.grid-three-auto {
-	display: grid !important;
-	grid-template-columns: repeat(auto-fill, minmax(min(376px, 100%), 1fr));
-	gap: $gap-s;
+//==============================================================
+// # DEBUGGING & DEVELOPMENT
+//==============================================================
+
+//--------------------------------------------------------------
+// # Debug Helper
+//--------------------------------------------------------------
+#main .grid-debug {
+	outline: 2px dashed $c-primary;
+	position: relative;
 
 	> div {
-		display: flex;
-		flex-direction: column;
-		align-items: center;
-		text-align: center; // Für p-Tags direkt anwenden
+		outline: 1px solid $c-gray;
+		background: rgba($c-primary, 0.05);
 	}
 
-	/* Breakpoint Settings */
-
-	@include mq($until: $laptop) {
-	}
-
-	@include mq($until: $mobile) {
-	}
-}
-
-.grid-dev {
-	display: grid !important;
-	grid-template-columns: repeat(auto-fill, minmax(min(390px, 100%), 1fr));
-	gap: 16px; /* Abstand zwischen den Elementen */
-}
-
-.grid-four {
-	display: grid !important;
-	grid-template-columns: repeat(4, 1fr);
-	gap: $gap-s;
-
-	.item {
-		display: flex;
-		flex-direction: column;
-		gap: 20px;
-	}
-
-	/* Breakpoint Settings */
-
-	@include mq($until: $laptop) {
-		grid-template-columns: repeat(2, 1fr);
-	}
-
-	@include mq($until: $tablet) {
-		grid-template-columns: repeat(1, 1fr);
-		> div {
-			display: flex;
-			flex-direction: column;
-			align-items: stretch;
-			flex-grow: 1;
-			p {
-				text-align: center;
-			}
-		}
-	}
-}
-
-.grid-eight-four {
-	display: grid;
-	grid-template-columns: 8fr 4fr; // Linke Spalte 8/12, rechte Spalte 4/12
-	gap: $gap; // Abstand zwischen den Spalten
-	//margin: 50px auto;
-
-	> div {
-		display: flex;
-		flex-direction: column;
-	}
-
-	// Breakpoint für Laptop und kleiner
-	@include mq($until: $laptop) {
-		grid-template-columns: 1fr; // Beide Spalten untereinander
-		gap: 20px;
-
-		> div {
-			align-items: flex-start; // Inhalte links ausrichten
-		}
-	}
-
-	// Breakpoint für Mobile
-	@include mq($until: $mobile) {
-		gap: 16px; // Kleineren Abstand auf mobilen Geräten
-	}
-}
-
-.grid-six-six {
-	display: grid;
-	grid-template-columns: 6fr 6fr; // Gleiche Breite für beide Spalten
-	gap: 40px; // Abstand zwischen den Spalten
-	margin: 50px auto;
-
-	> div {
-		display: flex;
-		flex-direction: column;
-	}
-
-	@include mq($until: $laptop) {
-		grid-template-columns: 1fr; // Beide Spalten untereinander
-		gap: 20px;
-	}
-
-	@include mq($until: $mobile) {
-		gap: 16px;
-	}
-}
-
-.grid-nine-three {
-	display: grid;
-	grid-template-columns: 9fr 3fr; // Linke Spalte größer
-	gap: $gap;
-	margin: 50px auto;
-
-	> div {
-		display: flex;
-		flex-direction: column;
-	}
-
-	@include mq($until: $laptop) {
-		grid-template-columns: 1fr;
-		gap: 20px;
-	}
-
-	@include mq($until: $mobile) {
-		gap: 16px;
-	}
-}
-
-.grid-four-eight {
-	display: grid;
-	grid-template-columns: 4fr 8fr; // Rechte Spalte dominiert
-	gap: $gap;
-	margin: 50px auto;
-
-	> div {
-		display: flex;
-		flex-direction: column;
-	}
-
-	@include mq($until: $laptop) {
-		grid-template-columns: 1fr;
-		gap: 20px;
-	}
-
-	@include mq($until: $mobile) {
-		gap: 16px;
-	}
-}
-
-.grid-three-three-six {
-	display: grid;
-	grid-template-columns: 3fr 3fr 6fr; // Drei Spalten mit unterschiedlichen Breiten
-	gap: $gap;
-	margin: 50px auto;
-
-	> div {
-		display: flex;
-		flex-direction: column;
-	}
-
-	@include mq($until: $laptop) {
-		grid-template-columns: 1fr; // Alle Spalten untereinander
-		gap: 20px;
-	}
-
-	@include mq($until: $mobile) {
-		gap: 16px;
-	}
-}
-
-.grid-two-ten {
-	display: grid;
-	grid-template-columns: 2fr 10fr; // Linke Spalte schmal
-	gap: $gap;
-	margin: 50px auto;
-
-	> div {
-		display: flex;
-		flex-direction: column;
-	}
-
-	@include mq($until: $laptop) {
-		grid-template-columns: 1fr;
-		gap: 20px;
-	}
-
-	@include mq($until: $mobile) {
-		gap: 16px;
+	&::before {
+		content: attr(class);
+		position: absolute;
+		top: -20px;
+		left: 0;
+		font-size: 12px;
+		color: $c-primary;
+		background: $c-white;
+		padding: 2px 6px;
+		border-radius: $radius-subtle;
+		z-index: 10;
+		box-shadow: 0 2px 4px rgba($c-black, 0.1);
 	}
 }

@@ -1,6 +1,5 @@
 @use "../global" as *;
 
-
 //--------------------------------------------------------------
 // # Page Einstellungen
 //--------------------------------------------------------------
@@ -28,7 +27,12 @@
 				//margin-top: $s-md;
 
 				& > * {
-					&:not(.gb-container--content__fullwidth) {
+					&:not(
+							.section--fullwidth,
+							.section--fullwidth-compact,
+							.section--fullwidth-compact-bottom,
+							.section--fullwidth-compact-top
+						) {
 						@include containerWrap;
 					}
 				}
